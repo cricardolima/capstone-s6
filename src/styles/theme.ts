@@ -5,7 +5,7 @@ export const theme = extendTheme({
     colors:{
         primary: '#EECD59',
         primaryTwo: '#D9BD30',
-        secondary: '#B2BD7E',
+        secondary: '#67A277',
         secondaryTwo: '#6F793E',
         title:'#111111',
         text: '#666665',
