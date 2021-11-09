@@ -16,13 +16,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
 
-interface SingInData {
+interface RegisterCompanyData {
   nome: string;
   email: string;
   password: string;
   passwordTwo: string;
+  CNPJ_CPF: string;
+  nameFantasy: string | null;
+  phone: string;
+  type: string;
 }
-const registerUserSchema = yup.object().shape({
+const registerCompanySchema = yup.object().shape({
   name: yup.string().required("Nome Obrigátorio"),
   CNPJ_CPF: yup.string().required("CNPJ ou CPF obrigatório"),
   nameFantasy: yup.string(),
@@ -46,8 +50,8 @@ export const RegisterCompany = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(registerUserSchema) });
-  const handleRegister = (data: SingInData) => {
+  } = useForm({ resolver: yupResolver(registerCompanySchema) });
+  const handleRegisterCompany = (data: RegisterCompanyData) => {
     console.log(data);
   };
   return (
@@ -62,7 +66,7 @@ export const RegisterCompany = () => {
     >
       <Flex
         as="form"
-        onSubmit={handleSubmit(handleRegister)}
+        onSubmit={handleSubmit(handleRegisterCompany)}
         flexDirection="column"
         alignItems="center"
         bgColor="baseDefault"

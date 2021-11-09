@@ -18,11 +18,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
 
-interface SingInData {
-  nome: string;
+interface RegisterUserData {
+  name: string;
   email: string;
   password: string;
   passwordTwo: string;
+  type: string;
 }
 const registerUserSchema = yup.object().shape({
   name: yup.string().required("Nome Obrigátorio"),
@@ -46,7 +47,7 @@ export const RegisterUser = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerUserSchema) });
-  const handleSingIn = (data: SingInData) => {
+  const handleRegisterUser = (data: RegisterUserData) => {
     console.log(data);
   };
   return (
@@ -86,7 +87,7 @@ export const RegisterUser = () => {
       <Flex flex="1" justifyContent="center">
         <Stack
           as="form"
-          onSubmit={handleSubmit(handleSingIn)}
+          onSubmit={handleSubmit(handleRegisterUser)}
           width="95%"
           maxWidth="500px"
           bgColor="baseDefault"
