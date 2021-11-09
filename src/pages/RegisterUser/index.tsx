@@ -1,7 +1,17 @@
-import { Flex, Text, Box, Img, Stack, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Box,
+  Img,
+  Stack,
+  Button,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 import registerSvg from "../../assets/registerUser.svg";
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
+
+import { Link } from "react-router-dom";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -159,7 +169,11 @@ export const RegisterUser = () => {
             Cadastrar
           </Button>
           <Text textAlign="center">
-            É empresa? clique aqui para se cadastrar!
+            É empresa?{" "}
+            <ChakraLink as={Link} color="secondary" to="/registerCompany">
+              clique aqui
+            </ChakraLink>{" "}
+            para se cadastrar!
           </Text>
         </Stack>
       </Flex>
