@@ -23,6 +23,7 @@ interface RegisterUserData {
   email: string;
   password: string;
   passwordTwo: string;
+  type: string;
 }
 const registerUserSchema = yup.object().shape({
   name: yup.string().required("Nome Obrigátorio"),
