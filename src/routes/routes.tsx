@@ -13,8 +13,7 @@ const AuthRoute = ({
   isPrivate,
   ...rest
 }: AuthRouteProps) => {
-  //   const token: string | null = localStorage.getItem("@app_token");
-  const token: string | null = "token";
+  const token: string | null = localStorage.getItem("@app_token");
 
   // a prop render trata como será a renderição do componente Route
   // Temos 4 possibilidades de autenticação
