@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Flex, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { FaArrowLeft } from "react-icons/fa";
 
 export const ButtonBack = () => {

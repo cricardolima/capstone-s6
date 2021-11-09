@@ -1,9 +1,44 @@
-import { Flex, Text, Box, Img, Stack, Input, Button } from "@chakra-ui/react";
-import React from "react";
-import register from "../../assets/registerUser.svg";
-import { ButtonBack } from "../../components/Buttons/ButtonBack";
+import { Flex, Text, Box, Img, Stack, Button } from "@chakra-ui/react";
+import registerSvg from "../../assets/registerUser.svg";
+import { ButtonBack } from "../../components/ButtonBack";
+import { Input } from "../../components/Input";
+
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { useForm } from "react-hook-form";
+
+interface SingInData {
+  nome: string;
+  email: string;
+  password: string;
+  passwordTwo: string;
+}
+const registerUserSchema = yup.object().shape({
+  name: yup.string().required("Nome Obrigátorio"),
+  email: yup.string().required("Email Obrigatório").email("Email inválido"),
+  password: yup
+    .string()
+    .required("Senha Obrigatório")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g,
+      "8 caracters:1 letra maiúscula,1 letra minúscula, 1 número e 1 caractere especial."
+    ),
+  passwordTwo: yup
+    .string()
+    .required("Confirmar Senha Obrigatório")
+    .oneOf([yup.ref("password"), null], "As senhas não correspondem!"),
+});
 
 export const RegisterUser = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(registerUserSchema) });
+  const handleSingIn = (data: SingInData) => {
+    console.log(data);
+  };
   return (
     <Flex
       width="100%"
@@ -29,7 +64,7 @@ export const RegisterUser = () => {
           <ButtonBack />
         </Flex>
         <Box>
-          <Img src={register} alt="Registro de Usuário" />
+          <Img src={registerSvg} alt="Registro de Usuário" />
         </Box>
         <Text fontSize="4xl" fontWeight="bold">
           O jeito fácil, grátis
@@ -40,13 +75,15 @@ export const RegisterUser = () => {
       </Flex>
       <Flex flex="1" justifyContent="center">
         <Stack
+          as="form"
+          onSubmit={handleSubmit(handleSingIn)}
           width="95%"
           maxWidth="500px"
           bgColor="baseDefault"
           spacing={4}
           boxSizing="border-box"
           padding={["20px", "50px", "50px"]}
-          boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25);"
+          boxShadow="0px 4px 8px 4px rgba(0, 0, 0, 0.25);"
         >
           <Flex
             width="100%"
@@ -62,39 +99,62 @@ export const RegisterUser = () => {
               </Text>
             </Flex>
           </Flex>
-          <Text as="label" fontSize="sm">
-            Nome Completo
-            <Input placeholder="Digite seu nome" padding="30px" />
-          </Text>
-
-          <Text as="label" fontSize="sm">
-            Seu Email
-            <Input placeholder="Digite seu email" padding="30px" />
-          </Text>
-
-          <Text as="label" fontSize="sm">
-            Sua Senha
+          <Box w="100%">
             <Input
-              placeholder="Digite sua senha"
-              type="password"
-              padding="30px"
+              placeholder="Nome Completo"
+              label={"Nome Completo :"}
+              type="text"
+              error={errors.name}
+              {...register("name")}
             />
-          </Text>
+          </Box>
 
-          <Text as="label" fontSize="sm">
-            Confirme sua Senha
+          <Box w="100%">
             <Input
-              placeholder="Confirme sua senha"
-              type="password"
-              padding="30px"
+              placeholder="Email"
+              label={"Email :"}
+              type="email"
+              error={errors.email}
+              {...register("email")}
             />
-          </Text>
+            {!errors.email && (
+              <Text ml="1" mt="1" color="secondary">
+                Exemplo : nome@email.com
+              </Text>
+            )}
+          </Box>
+
+          <Box w="100%">
+            <Input
+              placeholder="Senha"
+              label={"Senha :"}
+              type="password"
+              error={errors.password}
+              {...register("password")}
+            />
+            {!errors.password && (
+              <Text ml="1" mt="1" color="secondary">
+                A senha deve ter...
+              </Text>
+            )}
+          </Box>
+
+          <Box w="100%">
+            <Input
+              placeholder="Confirmação de Senha"
+              label={"Confirmação de Senha :"}
+              type="password"
+              error={errors.passwordTwo}
+              {...register("passwordTwo")}
+            />
+          </Box>
           <Button
             width="100%"
             padding="30px"
             color="baseDefault"
             bgColor="secondary"
             _hover={{ bgColor: "primary" }}
+            type="submit"
           >
             Cadastrar
           </Button>
