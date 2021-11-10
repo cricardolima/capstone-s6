@@ -24,7 +24,13 @@ interface SingInData {
 }
 const registerUserSchema = yup.object().shape({
   email: yup.string().required("Email Obrigatório").email("Email inválido"),
-  password: yup.string().required("Senha Obrigatório"),
+  password: yup
+    .string()
+    .required("Senha Obrigatório")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/g,
+      "8 caracters:1 letra maiúscula,1 letra minúscula, 1 número e 1 caractere especial."
+    ),
 });
 
 export const Login = () => {
@@ -40,12 +46,12 @@ export const Login = () => {
     <Flex
       width="100%"
       padding="10px 0px"
-      height={["", "100vh", "100vh"]}
+      height={["200vh", "100vh", "100vh"]}
       flexDirection={["column", "column", "row"]}
       justifyContent="center"
       alignItems="center"
       bgGradient={[
-        "linear(to-t, secondary 50%,baseDefault 50%)",
+        "linear(to-b, secondary 50%,baseDefault 45%)",
         "linear(to-t, secondary 50%,baseDefault 50%)",
         "linear(to-r, secondary 50%,baseDefault 50%,)",
       ]}
@@ -98,11 +104,6 @@ export const Login = () => {
               error={errors.email}
               {...register("email")}
             />
-            {!errors.email && (
-              <Text ml="1" mt="1" color="secondary">
-                Exemplo : nome@email.com
-              </Text>
-            )}
           </Box>
 
           <Box w="100%">
@@ -113,11 +114,6 @@ export const Login = () => {
               error={errors.password}
               {...register("password")}
             />
-            {!errors.password && (
-              <Text ml="1" mt="1" color="secondary">
-                A senha deve ter...
-              </Text>
-            )}
           </Box>
           <Button
             width="100%"
