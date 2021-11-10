@@ -10,6 +10,7 @@ import {
 import loginSvg from "../../assets/login.svg";
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
+import consertaLogo from "../../assets/logo.svg";
 
 import { Link } from "react-router-dom";
 
@@ -86,12 +87,19 @@ export const Login = () => {
             flexDirection={["column", "row", "row"]}
             margin="0 auto"
           >
-            <Flex flex="1" justifyContent="center" alignItems="center">
-              logo
-            </Flex>
-            <Flex flex="2" justifyContent="center">
-              <Text fontSize={["lg", "2xl", "2xl"]} fontWeight="bold">
-                Login
+            <Flex
+              flex="2"
+              justifyContent="center"
+              alignItems="center"
+              gridGap="10px"
+            >
+              <Img width="100px" src={consertaLogo} alt="Conserta meu carro" />
+              <Text
+                fontSize={["lg", "2xl", "2xl"]}
+                fontWeight="bold"
+                color="text"
+              >
+                Login de Usuário
               </Text>
             </Flex>
           </Flex>
