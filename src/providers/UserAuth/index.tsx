@@ -1,5 +1,6 @@
 import React, {useCallback} from "react"
 import { createContext, ReactNode, useContext, useState } from 'react'
+import {useHistory} from "react-router-dom"
 import api from "../../services/api";
 import {useToast} from "@chakra-ui/react"
 
@@ -44,6 +45,7 @@ const UserAuthContext = createContext<UserAuthData>({} as UserAuthData)
 
 
 export const UserAuthProvider = ({ children }: UserAuthProps) => {
+    const history = useHistory();
     const toast = useToast();
 
     const [data, setData] = useState<Response>(() => {
@@ -80,7 +82,7 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
                                     duration : 5000,
                                     isClosable : true,
                                 })
-                               return response
+                              history.push("/login")
                             })
                             .catch((error)=>{
                                 toast({
@@ -91,9 +93,9 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
                                     duration : 5000,
                                     isClosable : true,
                                 })
-                              return error
+                              
                             })
-    }, [toast])
+    }, [toast,history])
 
     return (
         <UserAuthContext.Provider value={{ user: data.user,signIn,accessToken: data.accessToken,registerUser }}>
