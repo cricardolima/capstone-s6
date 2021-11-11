@@ -54,7 +54,8 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   }, [error, value]);
 
   return (
-    <FormControl isInvalid={!!error}>
+    
+    <FormControl marginBottom="0px" isInvalid={!!error}>
       {!!label && <FormLabel color="text">{label}</FormLabel>}
 
       <InputGroup flexDirection="column">
@@ -74,7 +75,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
             boxShadow: "0 0 0 1px #67A277",
           }}
           size="lg"
-          h="60px"
+          h={["50px", "60px", "60px"]}
           color={inputVariation[variation]}
           borderColor={inputVariation[variation]}
           ref={ref}
