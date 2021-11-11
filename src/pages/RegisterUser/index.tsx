@@ -20,7 +20,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 interface RegisterUserData {
-  nome: string;
+  name: string;
   email: string;
   password: string;
   passwordTwo: string;

@@ -4,10 +4,12 @@ import {
   Box,
   Stack,
   Button,
+  Img,
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
+import consertaLogo from "../../assets/logo.svg";
 
 import { Link } from "react-router-dom";
 
@@ -16,13 +18,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
 
-interface SingInData {
+interface RegisterCompanyData {
   nome: string;
   email: string;
   password: string;
   passwordTwo: string;
+  CNPJ_CPF: string;
+  nameFantasy: string | null;
+  phone: string;
+  type: string;
 }
-const registerUserSchema = yup.object().shape({
+const registerCompanySchema = yup.object().shape({
   name: yup.string().required("Nome Obrigátorio"),
   CNPJ_CPF: yup.string().required("CNPJ ou CPF obrigatório"),
   nameFantasy: yup.string(),
@@ -46,15 +52,15 @@ export const RegisterCompany = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(registerUserSchema) });
-  const handleRegister = (data: SingInData) => {
+  } = useForm({ resolver: yupResolver(registerCompanySchema) });
+  const handleRegisterCompany = (data: RegisterCompanyData) => {
     console.log(data);
   };
   return (
     <Flex
       width="100%"
       padding="10px 0px"
-      height={["170vh", "100vh", "100vh"]}
+      height={["180vh", "100vh", "100vh"]}
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
@@ -62,7 +68,7 @@ export const RegisterCompany = () => {
     >
       <Flex
         as="form"
-        onSubmit={handleSubmit(handleRegister)}
+        onSubmit={handleSubmit(handleRegisterCompany)}
         flexDirection="column"
         alignItems="center"
         bgColor="baseDefault"
@@ -75,6 +81,7 @@ export const RegisterCompany = () => {
           width="100%"
           flexDirection={["column", "column", "row"]}
           justifyContent="center"
+          gridGap="10px"
         >
           <Stack flex="1" alignItems="center">
             <Flex
@@ -88,13 +95,13 @@ export const RegisterCompany = () => {
                 <ButtonBack />
               </Flex>
               <Flex flex="1" justifyContent="flex-end" alignItems="center">
-                logo
+                <Img width="80px" src={consertaLogo} alt="Conserta Logo!" />
               </Flex>
             </Flex>
             <Box w="100%" maxWidth="400px" margin="0 auto">
               <Input
-                placeholder="Razão Social ou Nome Completo"
-                label={"Razão Social ou Nome Completo :"}
+                placeholder="Razão Social"
+                label={"Razão Social"}
                 type="text"
                 error={errors.name}
                 {...register("name")}
@@ -102,8 +109,8 @@ export const RegisterCompany = () => {
             </Box>
             <Box w="100%" maxWidth="400px" margin="0 auto">
               <Input
-                placeholder="CNPJ ou CPF"
-                label={"CNPJ ou CPF :"}
+                placeholder="CNPJ"
+                label={"CNPJ :"}
                 type="text"
                 error={errors.CNPJ_CPF}
                 {...register("CNPJ_CPF")}
@@ -119,8 +126,8 @@ export const RegisterCompany = () => {
             </Box>
             <Box w="100%" maxWidth="400px" margin="0 auto">
               <Input
-                placeholder="Telefone"
-                label={"(85) 9 1234-5678 :"}
+                placeholder="(85) 9 1234-5678 "
+                label={"Telefone:"}
                 type="text"
                 error={errors.phone}
                 {...register("phone")}
@@ -139,6 +146,7 @@ export const RegisterCompany = () => {
                 <Text
                   fontSize={["lg", "2xl", "2xl"]}
                   fontWeight="bold"
+                  color="text"
                   textAlign={["center", "start", "start"]}
                 >
                   Cadastro de Empresa ou Empreendedor Individual
@@ -167,11 +175,6 @@ export const RegisterCompany = () => {
                 error={errors.password}
                 {...register("password")}
               />
-              {!errors.password && (
-                <Text ml="1" mt="1" color="secondary">
-                  A senha deve ter...
-                </Text>
-              )}
             </Box>
             <Box w="100%" maxWidth="400px" margin="0 auto">
               <Input
@@ -199,7 +202,7 @@ export const RegisterCompany = () => {
         </Button>
         <Text marginTop="10px" textAlign="center">
           É usuário?
-          <ChakraLink as={Link} color="secondary" to="/registerUser">
+          <ChakraLink as={Link} color="text" to="/registerUser">
             {" "}
             clique aqui
           </ChakraLink>{" "}
