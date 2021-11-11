@@ -7,11 +7,13 @@ import {
   FormLabel,
   FormControl,
   Stack,
+  Box,
   Button,
   Radio,
   RadioGroup,
 } from "@chakra-ui/react";
 import checkSvg from "../../assets/ok.svg";
+import closeSvg from "../../assets/close.svg";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -58,18 +60,20 @@ export const CheckOut = ({ callback }: CheckoutProps) => {
         backgroundColor="baseDefault"
       >
         <Flex width="100%" justifyContent="flex-end">
-          <Button
-            margin="0px"
-            padding="0px"
+          <Box
+            width="25px"
+            height="25px"
             borderRadius="5px"
             backgroundColor="error"
             color="baseDefault"
             display="flex"
+            cursor="pointer"
             alignItems="center"
             justifyContent="center"
+            onClick={() => callback()}
           >
-            X
-          </Button>
+            <Img src={closeSvg} alt="button close conserta meu carro!" />
+          </Box>
         </Flex>
         <Flex width="95%" justifyContent="Center">
           <Text
