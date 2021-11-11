@@ -38,13 +38,14 @@ const orderSchema = yup.object().shape({
 
 const OrderRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const commonStyle = {
-    borderWidth: "1px",
-    borderColor: "gray.400",
-    bg: "gray.300",
-    color: "orange",
+    _placeholder: { color: "placeholder" },
+    borderColor: "borderInput",
     borderRadius: "8px",
-    _placeholder: { color: "orange" },
+    borderWidth: "1px",
+    color: "text",
+    bg: "bgInput",
   };
 
   const {
@@ -62,6 +63,7 @@ const OrderRegister = () => {
       <Button mt={3} onClick={onOpen}>
         Trigger modal
       </Button>
+      
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -70,8 +72,8 @@ const OrderRegister = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader textAlign="center"> Novo Chamado </ModalHeader>
-          <ModalCloseButton bg="error" color="white" />
+          <ModalHeader color="title" textAlign="center"> Novo Chamado </ModalHeader>
+          <ModalCloseButton  bg="error" color="white" _hover={{bg: "placeholder"}} />
           <ModalBody>
             <Stack
               as="form"
@@ -95,13 +97,12 @@ const OrderRegister = () => {
                 <FormLabel fontSize="14px"> Problema </FormLabel>
                 <Select
                   cursor="pointer"
+                  defaultValue=""
+                  placeholder="Selecione o problema"
                   icon={<TiArrowSortedDown />}
                   {...register("issue")}
                   {...commonStyle}
                 >
-                  <option disabled selected value="">
-                    Selecione o problema
-                  </option>
                   <option value="Motor de arranque"> Motor de arranque </option>
                   <option value="Não liga mais"> Não liga mais </option>
                   <option value="Pneu furado"> Pneu furado </option>
@@ -138,7 +139,7 @@ const OrderRegister = () => {
 
           <ModalFooter justifyContent="center">
             <Button
-              colorScheme="blue"
+              colorScheme="buttonSchema"
               mr={3}
               type="submit"
               form="orderRegister"
