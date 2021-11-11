@@ -8,6 +8,8 @@ import {
   FormControl,
   Stack,
   Button,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 import checkSvg from "../../assets/ok.svg";
 
@@ -79,6 +81,13 @@ export const CheckOut = ({ callback }: CheckoutProps) => {
           <Button width="120px" border="1px solid #000000">
             Reboque
           </Button>
+
+          {/*<RadioGroup>
+            <Stack direction="row">
+              <Radio value="1">Resolvido</Radio>
+              <Radio value="2">Reboque</Radio>
+            </Stack>
+          </RadioGroup>*/}
         </Flex>
         <Flex width="100%" gridGap="10px" justifyContent="Center">
           <FormControl>
