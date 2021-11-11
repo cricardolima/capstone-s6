@@ -13,17 +13,30 @@ import {
 } from "@chakra-ui/react";
 import checkSvg from "../../assets/ok.svg";
 
-//import * as yup from "yup";
-//import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-//import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 interface CheckoutProps {
   callback: () => void | null;
 }
 
+const checkOutSchema = yup.object().shape({
+  description: yup.string().required("Campo obrigatório"),
+  action: yup.string().nullable().required("Selecione um dos campos."),
+});
+
 export const CheckOut = ({ callback }: CheckoutProps) => {
-  const handleCheckout = () => {};
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(checkOutSchema) });
+
+  const handleCheckout = (data: object) => {
+    console.log(data);
+  };
   return (
     <Flex
       width="100%"
@@ -34,6 +47,8 @@ export const CheckOut = ({ callback }: CheckoutProps) => {
       alignItems="center"
     >
       <Stack
+        as="form"
+        onSubmit={handleSubmit(handleCheckout)}
         width="95%"
         maxWidth="500px"
         height="400px"
@@ -70,42 +85,48 @@ export const CheckOut = ({ callback }: CheckoutProps) => {
           </Text>
         </Flex>
         <Flex width="100%" gridGap="10px" justifyContent="Center">
-          <Button
-            width="120px"
-            bgColor="secondary"
-            color="White"
-            _hover={{ bgColor: "secondaryTwo" }}
-          >
-            Resolvido
-          </Button>
-          <Button width="120px" border="1px solid #000000">
-            Reboque
-          </Button>
-
-          {/*<RadioGroup>
+          <RadioGroup>
             <Stack direction="row">
-              <Radio value="1">Resolvido</Radio>
-              <Radio value="2">Reboque</Radio>
+              <Radio
+                {...register("action")}
+                colorScheme="green"
+                value="Resolvido no local."
+              >
+                Resolvido
+              </Radio>
+              <Radio
+                {...register("action")}
+                colorScheme="yellow"
+                value="Reboque acionado."
+              >
+                Reboque
+              </Radio>
             </Stack>
-          </RadioGroup>*/}
+            {errors.action?.message && (
+              <Text color="error">{errors.action?.message}</Text>
+            )}
+          </RadioGroup>
         </Flex>
         <Flex width="100%" gridGap="10px" justifyContent="Center">
           <FormControl>
             <FormLabel color="text">Descrição : </FormLabel>
             <Textarea
-              required
               borderColor="text"
               _hover={{ borderColor: "#000000" }}
               _focus={{ borderColor: "secondary" }}
               _placeholder={{ color: "placeholder" }}
               placeholder="Ex : A válvula de ignição precisou ser trocada."
               height="120"
+              {...register("description")}
             />
+            {errors.description?.message && (
+              <Text color="error">{errors.description?.message}</Text>
+            )}
           </FormControl>
         </Flex>
         <Flex width="100%" gridGap="10px" justifyContent="Center">
           <Button
-            onClick={() => callback()}
+            type="submit"
             width="200px"
             bgColor="secondary"
             color="White"
