@@ -1,3 +1,4 @@
+import * as React from 'react'
 import {
   Flex,
   Text,
@@ -13,6 +14,8 @@ import { Input } from "../../components/Input";
 import consertaLogo from "../../assets/logo.svg";
 
 import { Link } from "react-router-dom";
+
+import {useUserAuth} from "../../providers/UserAuth"
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -42,14 +45,20 @@ const registerUserSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "As senhas não correspondem!"),
 });
 
+ 
 export const RegisterUser = () => {
+  const {registerUser} =  useUserAuth()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerUserSchema) });
   const handleRegisterUser = (data: RegisterUserData) => {
-    console.log(data);
+        const newData = {
+          ...data,
+          type:"user"
+        }
+    registerUser(newData)
   };
   return (
     <Flex
