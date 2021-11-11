@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Switch, Route } from "react-router-dom";
+import { CheckOut } from "../pages/CheckOut";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { RegisterCompany } from "../pages/RegisterCompany";
@@ -12,6 +13,7 @@ export const Routes = () => {
       <Route exact path="/login" component={Login} />
       <Route exact path="/registerUser" component={RegisterUser} />
       <Route exact path="/registerCompany" component={RegisterCompany} />
+      <Route exact path="/check" component={CheckOut} />
     </Switch>
   );
 };
