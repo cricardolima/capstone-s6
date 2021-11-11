@@ -1,8 +1,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import React from "react";
 import { ReactNode } from "react";
 import { theme } from "../styles/theme";
 import { UserAuthProvider } from "./UserAuth";
+import React from "react";
 
 interface AppProviderProps {
   children: ReactNode;
