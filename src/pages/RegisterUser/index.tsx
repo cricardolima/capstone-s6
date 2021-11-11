@@ -10,6 +10,7 @@ import {
 import registerSvg from "../../assets/registerUser.svg";
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
+import consertaLogo from "../../assets/logo.svg";
 
 import { Link } from "react-router-dom";
 
@@ -18,11 +19,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
 
-interface SingInData {
-  nome: string;
+interface RegisterUserData {
+  name: string;
   email: string;
   password: string;
   passwordTwo: string;
+  type: string;
 }
 const registerUserSchema = yup.object().shape({
   name: yup.string().required("Nome Obrigátorio"),
@@ -46,26 +48,26 @@ export const RegisterUser = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerUserSchema) });
-  const handleSingIn = (data: SingInData) => {
+  const handleRegisterUser = (data: RegisterUserData) => {
     console.log(data);
   };
   return (
     <Flex
       width="100%"
       padding="10px 0px"
-      height={["", "100vh", "100vh"]}
+      height={["220vh", "100vh", "100vh"]}
       flexDirection={["column", "column", "row"]}
       justifyContent="center"
       alignItems="center"
       bgGradient={[
-        "linear(to-t, secondary 50%,baseDefault 50%)",
+        "linear(to-b, baseDefault 40%,secondary 0%)",
         "linear(to-t, secondary 50%,baseDefault 50%)",
         "linear(to-r, baseDefault 50%, secondary 50%)",
       ]}
     >
       <Flex
         flex="1"
-        justifyContent="center"
+        justifyContent={["flex-start", "center", "center"]}
         alignItems="center"
         flexDirection="column"
         paddingBottom="35px"
@@ -86,13 +88,13 @@ export const RegisterUser = () => {
       <Flex flex="1" justifyContent="center">
         <Stack
           as="form"
-          onSubmit={handleSubmit(handleSingIn)}
+          onSubmit={handleSubmit(handleRegisterUser)}
           width="95%"
           maxWidth="500px"
           bgColor="baseDefault"
           spacing={4}
           boxSizing="border-box"
-          padding={["20px", "50px", "50px"]}
+          padding={["15px 20px", "30px", "30px"]}
           boxShadow="0px 4px 8px 4px rgba(0, 0, 0, 0.25);"
         >
           <Flex
@@ -100,10 +102,13 @@ export const RegisterUser = () => {
             flexDirection={["column", "row", "row"]}
             margin="0 auto"
           >
-            <Flex flex="1" justifyContent="center" alignItems="center">
-              logo
-            </Flex>
-            <Flex flex="2" justifyContent="center">
+            <Flex
+              flex="2"
+              justifyContent="center"
+              alignItems="center"
+              gridGap="5px"
+            >
+              <Img width="100px" src={consertaLogo} alt="Conserta meu carro!" />
               <Text fontSize={["lg", "2xl", "2xl"]} fontWeight="bold">
                 Cadastro de Usuário
               </Text>
@@ -128,7 +133,7 @@ export const RegisterUser = () => {
               {...register("email")}
             />
             {!errors.email && (
-              <Text ml="1" mt="1" color="secondary">
+              <Text ml="1" color="secondary">
                 Exemplo : nome@email.com
               </Text>
             )}
@@ -143,7 +148,7 @@ export const RegisterUser = () => {
               {...register("password")}
             />
             {!errors.password && (
-              <Text ml="1" mt="1" color="secondary">
+              <Text ml="1" color="secondary">
                 A senha deve ter...
               </Text>
             )}
