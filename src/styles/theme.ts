@@ -13,6 +13,8 @@ export const theme = extendTheme({
         error:'#FB4D3D',
         success:'#25D970',
         baseDefault : '#FFFFFF',
+        bgInput : '#F6F6F7',
+        borderInput: '#e0e0e0',
         fonts:{
             heading:'Inter',
             body:'inter'

@@ -25,8 +25,8 @@ type inputVariationOptions = {
 };
 const inputVariation: inputVariationOptions = {
   error: "error",
-  default: "gray",
-  focus: "gray",
+  default: "borderInput",
+  focus: "text",
   filled: "secondary",
 };
 
@@ -54,8 +54,9 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   }, [error, value]);
 
   return (
+    
     <FormControl marginBottom="0px" isInvalid={!!error}>
-      {!!label && <FormLabel>{label}</FormLabel>}
+      {!!label && <FormLabel color="text">{label}</FormLabel>}
 
       <InputGroup flexDirection="column">
         {Icon && (
@@ -65,10 +66,14 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         )}
         <ChakraInput
           name={name}
-          bg="gray.50"
+          bg="bgInput"
           variant="outline"
-          _hover={{ bgColor: "#e0e0e0" }}
-          _placeholder={{ color: "text" }}
+          _hover={{ bgColor: "bgInput" }}
+          _placeholder={{ color: "placeholder" }}
+          _focus={{
+            borderColor: "secondary",
+            boxShadow: "0 0 0 1px #67A277",
+          }}
           size="lg"
           h={["50px", "60px", "60px"]}
           color={inputVariation[variation]}
