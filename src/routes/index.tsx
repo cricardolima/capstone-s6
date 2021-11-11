@@ -1,4 +1,5 @@
 import * as React from "react";
+import { CheckOut } from "../pages/CheckOut";
 import { Switch } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
@@ -12,9 +13,10 @@ export const Routes = () => {
     <Switch>
       <AuthRoute exact path="/" component={Home} />
       <AuthRoute exact isPrivate path="/dashboard" component={DashboardRoute} />
-      <AuthRoute path="/login" component={Login} /> */}
-      <AuthRoute path="/registerUser" component={RegisterUser} /> */}
-      <AuthRoute path="/registerCompany" component={RegisterCompany} /> */}
+      <AuthRoute path="/login" component={Login} />
+      <AuthRoute path="/registerUser" component={RegisterUser} />
+      <AuthRoute path="/registerCompany" component={RegisterCompany} />
+      <AuthRoute path="/check" component={CheckOut} />
       {/* <AuthRoute isPrivate path="/dashboard/user" component={UserDashboard} /> */}
       {/* <AuthRoute
         isPrivate
