@@ -1,6 +1,8 @@
 import React, {useCallback} from "react"
 import { createContext, ReactNode, useContext, useState } from 'react'
+import {useHistory} from "react-router-dom"
 import api from "../../services/api";
+import {useToast} from "@chakra-ui/react"
 
 interface User  {
     email: string,
@@ -25,16 +27,26 @@ interface UserAuthData {
     user: User,
     accessToken: string,
     signIn: (credentials: SignInCredentials) => Promise<void>,
+    registerUser: (credentials: RegisterUser) => Promise<void>,
 }
 
 interface SignInCredentials {
     email: string,
     password: string
 }
+interface RegisterUser{
+    name: string;
+    email: string;
+    password: string;
+    type: string;
+}
 
 const UserAuthContext = createContext<UserAuthData>({} as UserAuthData)
 
+
 export const UserAuthProvider = ({ children }: UserAuthProps) => {
+    const history = useHistory();
+    const toast = useToast();
 
     const [data, setData] = useState<Response>(() => {
         const accessToken = localStorage.getItem("@conserta:accessToken")
@@ -58,8 +70,35 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
         setData({accessToken, user})
     }, [])
 
+    const registerUser = useCallback(async ({name, email, password}: RegisterUser) => {
+                        await 
+                            api.post("/register", {name, email, password})
+                            .then((response)=> {
+                                toast({
+                                    position:'top',
+                                    title:"Sucesso ao se Cadastrar!",
+                                    description:"Faça login para acessar ao sistema.",
+                                    status: "success",
+                                    duration : 5000,
+                                    isClosable : true,
+                                })
+                              history.push("/login")
+                            })
+                            .catch((error)=>{
+                                toast({
+                                    position:'top',
+                                    title:"Erro ao se Cadastrar!",
+                                    description:"Tente novamente ou contate o suporte!",
+                                    status: "error",
+                                    duration : 5000,
+                                    isClosable : true,
+                                })
+                              
+                            })
+    }, [toast,history])
+
     return (
-        <UserAuthContext.Provider value={{ user: data.user,signIn,accessToken: data.accessToken }}>
+        <UserAuthContext.Provider value={{ user: data.user,signIn,accessToken: data.accessToken,registerUser }}>
             {children}
         </UserAuthContext.Provider>
     )
