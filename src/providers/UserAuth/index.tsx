@@ -40,6 +40,7 @@ interface RegisterUser{
     email: string;
     password: string;
     type: string;
+    cpf: string;
 }
 interface RegisterCompany{
     name: string | null;
