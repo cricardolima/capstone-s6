@@ -28,6 +28,7 @@ interface UserAuthData {
     accessToken: string,
     signIn: (credentials: SignInCredentials) => Promise<void>,
     registerUser: (credentials: RegisterUser) => Promise<void>,
+    registerCompany: (credentials: RegisterCompany) => Promise<void>,
 }
 
 interface SignInCredentials {
@@ -39,6 +40,16 @@ interface RegisterUser{
     email: string;
     password: string;
     type: string;
+}
+interface RegisterCompany{
+    name: string | null;
+    company_name: string;
+    cnpj: string;
+    address: string;
+    email: string;
+    password: string;
+    type: string;
+    phone: string
 }
 
 const UserAuthContext = createContext<UserAuthData>({} as UserAuthData)
@@ -93,12 +104,37 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
                                     duration : 5000,
                                     isClosable : true,
                                 })
-                              
                             })
     }, [toast,history])
 
+    const registerCompany = useCallback(async ({name,company_name,cnpj,address, email, password,type,phone}: RegisterCompany) => {
+        await 
+            api.post("/register", {name,company_name,cnpj,address, email, password,type,phone})
+            .then((response)=> {
+                toast({
+                    position:'top',
+                    title:"Sucesso ao se Cadastrar!",
+                    description:"Faça login para acessar ao sistema.",
+                    status: "success",
+                    duration : 5000,
+                    isClosable : true,
+                })
+              history.push("/login")
+            })
+            .catch((error)=>{
+                toast({
+                    position:'top',
+                    title:"Erro ao se Cadastrar!",
+                    description:"Tente novamente ou contate o suporte!",
+                    status: "error",
+                    duration : 5000,
+                    isClosable : true,
+                })
+            })
+}, [toast,history])
+
     return (
-        <UserAuthContext.Provider value={{ user: data.user,signIn,accessToken: data.accessToken,registerUser }}>
+        <UserAuthContext.Provider value={{ user: data.user,signIn,accessToken: data.accessToken,registerUser,registerCompany }}>
             {children}
         </UserAuthContext.Provider>
     )
