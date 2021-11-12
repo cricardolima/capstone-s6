@@ -27,7 +27,7 @@ import { useUserAuth } from "../../providers/UserAuth";
 
 interface IOrderData {
   model: string;
-  year: number;
+  year: string;
   issue: string;
   description: string;
   address: string;
@@ -35,11 +35,21 @@ interface IOrderData {
 
 const orderSchema = yup.object().shape({
   model: yup.string().required("Campo obrigatório"),
-  year: yup.number().required("Campo obrigatório"),
+  year: yup.string().required("Campo obrigatório"),
   issue: yup.string().required("Campo obrigatório"),
   description: yup.string().required("Campo obrigatório"),
   address: yup.string().required("Campo obrigatório"),
 });
+
+const defaultValues:IOrderData  = {
+  model: "",
+  year: "",
+  issue: "",
+  description: "",
+  address: "",
+}
+
+console.log(orderSchema)
 
 const OrderRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,10 +67,21 @@ const OrderRegister = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<IOrderData>({ resolver: yupResolver(orderSchema) });
+    reset,
+    formState,
+  } = useForm<IOrderData>({ resolver: yupResolver(orderSchema), defaultValues: defaultValues  } );
+
+  const { errors, isSubmitSuccessful  } = formState;
+
+  React.useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(defaultValues);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formState, reset]);
 
   const handleRegister = (data: IOrderData) => {
+    onClose();
     const {issue, description, address, model, year } = data;
 
     const body = {
