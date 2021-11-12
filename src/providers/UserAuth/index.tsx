@@ -39,6 +39,7 @@ interface RegisterUser{
     email: string;
     password: string;
     type: string;
+    cpf: string;
 }
 
 const UserAuthContext = createContext<UserAuthData>({} as UserAuthData)
