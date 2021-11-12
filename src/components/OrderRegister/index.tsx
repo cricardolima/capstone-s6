@@ -16,21 +16,26 @@ import {
   FormErrorMessage,
   Textarea,
   Input,
+  Text
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import api from "../../services/api";
+import { useUserAuth } from "../../providers/UserAuth";
 
 interface IOrderData {
-  vehicle: string;
+  model: string;
+  year: number;
   issue: string;
   description: string;
   address: string;
 }
 
 const orderSchema = yup.object().shape({
-  vehicle: yup.string().required("Campo obrigatório"),
+  model: yup.string().required("Campo obrigatório"),
+  year: yup.number().required("Campo obrigatório"),
   issue: yup.string().required("Campo obrigatório"),
   description: yup.string().required("Campo obrigatório"),
   address: yup.string().required("Campo obrigatório"),
@@ -38,6 +43,7 @@ const orderSchema = yup.object().shape({
 
 const OrderRegister = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {user, accessToken} = useUserAuth();
 
   const commonStyle = {
     _placeholder: { color: "placeholder" },
@@ -55,7 +61,20 @@ const OrderRegister = () => {
   } = useForm<IOrderData>({ resolver: yupResolver(orderSchema) });
 
   const handleRegister = (data: IOrderData) => {
-    console.log(data);
+    const {issue, description, address, model, year } = data;
+
+    const body = {
+      title: issue,
+      description,
+      address,
+      rating: {},
+      status: "pending",
+      vehicle: {model, year},
+      userId: user?.id,
+    }
+    api.post("/orders", body,{ headers:{ Authorization: `Bearer ${accessToken}` }})
+    .then(() => console.log("Deu Show"))
+    .catch(()=> console.log("Deu Ruim"))
   };
 
   return (
@@ -72,7 +91,7 @@ const OrderRegister = () => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="title" textAlign="center"> Novo Chamado </ModalHeader>
+          <ModalHeader color="title" textAlign="center" fontSize="2xl"> Novo Chamado </ModalHeader>
           <ModalCloseButton  bg="error" color="white" _hover={{bg: "placeholder"}} />
           <ModalBody>
             <Stack
@@ -82,16 +101,33 @@ const OrderRegister = () => {
               direction="column"
               spacing={3}
             >
-              <FormControl isInvalid={!!errors.vehicle} id="vehicle">
-                <FormLabel fontSize="14px"> Veículo </FormLabel>
-                <Input
-                  placeholder="Ex. Honda Civic, 2017"
-                  type="text"
-                  {...register("vehicle")}
-                  {...commonStyle}
-                />
-                <FormErrorMessage> {errors.vehicle?.message} </FormErrorMessage>
+                <Text textAlign="center" fontSize="xl" children="Veículo" />
+              <Stack 
+              spacing={2} direction="row" >
+                <FormControl isInvalid={!!errors.model} id="model">
+                  <FormLabel fontSize="14px"> Modelo </FormLabel>
+                  <Input
+                    placeholder="Honda Civic"
+                    type="text"
+                    {...register("model")}
+                    {...commonStyle}
+                  />
+                <FormErrorMessage> {errors.model?.message} </FormErrorMessage>
               </FormControl>
+              
+                <FormControl w="unset"  isInvalid={!!errors.year} id="year">
+                  <FormLabel fontSize="14px" > Ano </FormLabel>
+                  <Input
+                  w="80px"
+                    textAlign="center"
+                    placeholder="2017"
+                    type="number"
+                    {...register("year")}
+                    {...commonStyle}
+                  />
+                <FormErrorMessage> {errors.year?.message} </FormErrorMessage>
+              </FormControl>
+              </Stack>
 
               <FormControl id="issue" isInvalid={!!errors.issue}>
                 <FormLabel fontSize="14px"> Problema </FormLabel>
