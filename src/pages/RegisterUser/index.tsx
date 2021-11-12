@@ -1,3 +1,4 @@
+import * as React from 'react'
 import {
   Flex,
   Text,
@@ -14,6 +15,8 @@ import consertaLogo from "../../assets/logo.svg";
 
 import { Link } from "react-router-dom";
 
+import {useUserAuth} from "../../providers/UserAuth"
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -23,8 +26,9 @@ interface RegisterUserData {
   name: string;
   email: string;
   password: string;
-  passwordTwo: string;
+  passwordTwo?: string;
   type: string;
+  cpf: string;
 }
 const registerUserSchema = yup.object().shape({
   name: yup.string().required("Nome Obrigátorio"),
@@ -40,16 +44,23 @@ const registerUserSchema = yup.object().shape({
     .string()
     .required("Confirmar Senha Obrigatório")
     .oneOf([yup.ref("password"), null], "As senhas não correspondem!"),
+    cpf : yup.string().required("Campo obrigatório!").matches(/([0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2})/gi,"Somente números Exemplo : 12345678900")
 });
 
+ 
 export const RegisterUser = () => {
+  const {registerUser} =  useUserAuth()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerUserSchema) });
   const handleRegisterUser = (data: RegisterUserData) => {
-    console.log(data);
+        const newData = {
+          ...data,
+          type:"user"
+        }
+    registerUser(newData)
   };
   return (
     <Flex
@@ -94,7 +105,7 @@ export const RegisterUser = () => {
           bgColor="baseDefault"
           spacing={4}
           boxSizing="border-box"
-          padding={["15px 20px", "30px", "30px"]}
+          padding={["10px 20px", "15px 20px", "15px 20px"]}
           boxShadow="0px 4px 8px 4px rgba(0, 0, 0, 0.25);"
         >
           <Flex
@@ -135,6 +146,22 @@ export const RegisterUser = () => {
             {!errors.email && (
               <Text ml="1" color="secondary">
                 Exemplo : nome@email.com
+              </Text>
+            )}
+          </Box>
+
+
+          <Box w="100%">
+            <Input
+              placeholder="CPF"
+              label={"CPF :"}
+              type="number"
+              error={errors.cpf}
+              {...register("cpf")}
+            />
+            {!errors.cpf && (
+              <Text ml="1" color="secondary">
+                Exemplo: 12345678900
               </Text>
             )}
           </Box>

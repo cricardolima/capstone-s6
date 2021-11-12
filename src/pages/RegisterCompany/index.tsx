@@ -1,3 +1,4 @@
+import * as React from 'react'
 import {
   Flex,
   Text,
@@ -12,6 +13,7 @@ import { Input } from "../../components/Input";
 import consertaLogo from "../../assets/logo.svg";
 
 import { Link } from "react-router-dom";
+import {useUserAuth} from "../../providers/UserAuth"
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,19 +21,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 interface RegisterCompanyData {
-  nome: string;
+  name: string | null;
+  company_name: string;
+  cnpj: string;
+  address : string;
   email: string;
   password: string;
   passwordTwo: string;
-  CNPJ_CPF: string;
-  nameFantasy: string | null;
-  phone: string;
   type: string;
+  phone: string;
 }
 const registerCompanySchema = yup.object().shape({
   name: yup.string().required("Nome Obrigátorio"),
-  CNPJ_CPF: yup.string().required("CNPJ ou CPF obrigatório"),
-  nameFantasy: yup.string(),
+  cnpj: yup.string().required("CNPJ ou CPF obrigatório"),
+  company_name: yup.string(),
   phone: yup.string().required("Telefone Obrigatório"),
   email: yup.string().required("Email Obrigatório").email("Email inválido"),
   password: yup
@@ -48,13 +51,14 @@ const registerCompanySchema = yup.object().shape({
 });
 
 export const RegisterCompany = () => {
+  const {registerCompany} = useUserAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerCompanySchema) });
   const handleRegisterCompany = (data: RegisterCompanyData) => {
-    console.log(data);
+    registerCompany({...data,type: "company"})
   };
   return (
     <Flex
@@ -103,8 +107,8 @@ export const RegisterCompany = () => {
                 placeholder="Razão Social"
                 label={"Razão Social"}
                 type="text"
-                error={errors.name}
-                {...register("name")}
+                error={errors.company_name}
+                {...register("company_name")}
               />
             </Box>
             <Box w="100%" maxWidth="400px" margin="0 auto">
@@ -112,8 +116,8 @@ export const RegisterCompany = () => {
                 placeholder="CNPJ"
                 label={"CNPJ :"}
                 type="text"
-                error={errors.CNPJ_CPF}
-                {...register("CNPJ_CPF")}
+                error={errors.cnpj}
+                {...register("cnpj")}
               />
             </Box>
             <Box w="100%" maxWidth="400px" margin="0 auto">
@@ -121,7 +125,7 @@ export const RegisterCompany = () => {
                 placeholder="Nome Fantasia"
                 label={"Nome Fantasia :"}
                 type="text"
-                {...register("nameFantasy")}
+                {...register("name")}
               />
             </Box>
             <Box w="100%" maxWidth="400px" margin="0 auto">
