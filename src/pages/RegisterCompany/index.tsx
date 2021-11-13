@@ -11,6 +11,7 @@ import {
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
 import consertaLogo from "../../assets/logo.svg";
+import { FaEnvelope, FaLock,FaPhoneAlt } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import {useUserAuth} from "../../providers/UserAuth"
@@ -135,6 +136,7 @@ export const RegisterCompany = () => {
                 type="text"
                 error={errors.phone}
                 {...register("phone")}
+                icon={FaPhoneAlt}
               />
             </Box>
           </Stack>
@@ -164,6 +166,7 @@ export const RegisterCompany = () => {
                 type="email"
                 error={errors.email}
                 {...register("email")}
+                icon={FaEnvelope}
               />
               {!errors.email && (
                 <Text ml="1" mt="1" color="secondary">
@@ -178,6 +181,7 @@ export const RegisterCompany = () => {
                 type="password"
                 error={errors.password}
                 {...register("password")}
+                icon={FaLock}
               />
             </Box>
             <Box w="100%" maxWidth="400px" margin="0 auto">
@@ -187,6 +191,7 @@ export const RegisterCompany = () => {
                 type="password"
                 error={errors.passwordTwo}
                 {...register("passwordTwo")}
+                icon={FaLock}
               />
             </Box>
           </Stack>
