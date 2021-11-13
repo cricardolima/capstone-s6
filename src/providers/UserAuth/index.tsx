@@ -72,15 +72,40 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
   });
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api.post("/login", { email, password });
-
-    const { accessToken, user } = response.data;
-
-    localStorage.setItem("@conserta:accessToken", accessToken);
-    localStorage.setItem("@conserta:user", JSON.stringify(user));
-
-    setData({ accessToken, user });
-    history.push("/dashboard/user");
+    const response = await 
+                          api.post("/login", { email, password })
+                          .then((response)=>{
+                            toast({
+                              position: "top",
+                              title: "Sucesso ao Fazer Login!",
+                              description: "Bem vindo ao Conserta eu Carro!",
+                              status: "success",
+                              duration: 5000,
+                              isClosable: true,
+                            });
+                            return response
+                          })
+                          .catch((error)=>{
+                            toast({
+                              position: "top",
+                              title: "Erro ao Fazer Login!",
+                              description: "Verifique os dados e tente novamente!",
+                              status: "error",
+                              duration: 5000,
+                              isClosable: true,
+                            });
+                            return error
+                          })
+                          
+    if(response.data){
+      const { accessToken, user } = response.data;
+      
+      localStorage.setItem("@conserta:accessToken", accessToken);
+      localStorage.setItem("@conserta:user", JSON.stringify(user));
+      
+      setData({ accessToken, user });
+      history.push("/dashboard/user");
+    }
     // eslint-disable-next-line
   }, []);
 
