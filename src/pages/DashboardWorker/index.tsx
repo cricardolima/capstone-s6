@@ -19,7 +19,7 @@ import { TabsWorker } from "../../components/Tabs/TabsWorker";
 import { ModalCheckoutOrder } from "../../components/Modal/ModalCheckoutOrder";
 
 export const DashboardWorker = () => {
-  const {onToggle, isOpen, onClose, onOpen } = useDisclosure();
+  const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
 
   const logout = (path: any) => {
     console.log(path);
@@ -27,11 +27,11 @@ export const DashboardWorker = () => {
 
   return (
     <>
-      <HStack ml="2%" mt="2%" spacing={10}>
+      <HStack ml="2%" mt="2%" spacing={[2, 5, 10]}>
         <Box>
           <Image src={logo} alt="Logo" h="140px" w="120px" />
         </Box>
-        <VStack alignItems="flex-start" w="86%">
+        <VStack alignItems="flex-start" w={["50%", "60%", "70%", "80%"]}>
           <Text as="h3" color="text" fontWeight="bold">
             Dashboard Empresa
           </Text>
