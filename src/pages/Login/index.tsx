@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react";
 import {
   Flex,
   Text,
@@ -19,6 +19,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
+import { useUserAuth } from "../../providers/UserAuth";
 
 interface SingInData {
   email: string;
@@ -36,13 +37,16 @@ const registerUserSchema = yup.object().shape({
 });
 
 export const Login = () => {
+  const { signIn } = useUserAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerUserSchema) });
+  
   const handleSingIn = (data: SingInData) => {
-    console.log(data);
+    signIn(data);
   };
   return (
     <Flex

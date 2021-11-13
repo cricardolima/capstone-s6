@@ -58,7 +58,7 @@ export const RegisterCompany = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerCompanySchema) });
   const handleRegisterCompany = (data: RegisterCompanyData) => {
-    registerCompany({...data,type: "company"})
+    registerCompany({...data, type: "company"})
   };
   return (
     <Flex
