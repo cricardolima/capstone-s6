@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from 'react'
 import {
   FormControl,
   FormErrorMessage,
@@ -57,11 +57,11 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   return (
     
     <FormControl marginBottom="0px" isInvalid={!!error}>
-      {!!label && <FormLabel color="text">{label}</FormLabel>}
+      {!!label && <FormLabel mb="0px" color="text">{label}</FormLabel>}
 
       <InputGroup flexDirection="column">
         {Icon && (
-          <InputLeftElement color={inputVariation[variation]} mt="2.5">
+          <InputLeftElement color={inputVariation[variation]} mt="1">
             <Icon />
           </InputLeftElement>
         )}
@@ -87,7 +87,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         />
         {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
       </InputGroup>
-    </FormControl>
+    </FormControl>  
   );
 };
 

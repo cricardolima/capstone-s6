@@ -15,6 +15,10 @@ export const theme = extendTheme({
         baseDefault : '#FFFFFF',
         bgInput : '#F6F6F7',
         borderInput: '#e0e0e0',
+        buttonSchema:{
+            500: "#67A277", //background
+            600: "#2F855A", //hover            
+        },
         fonts:{
             heading:'Inter',
             body:'inter'
