@@ -18,7 +18,6 @@ import {
   Input,
   Text
 } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/hooks";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -49,10 +48,15 @@ const defaultValues:IOrderData  = {
   address: "",
 }
 
+interface DisclosureData {
+  isOpen: boolean;
+  onClose: () => void;
+  onOpen: () => void;
+}
+
 console.log(orderSchema)
 
-const OrderRegister = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
   const {user, accessToken} = useUserAuth();
 
   const commonStyle = {
@@ -99,11 +103,7 @@ const OrderRegister = () => {
   };
 
   return (
-    <>
-      <Button mt={3} onClick={onOpen}>
-        Trigger modal
-      </Button>
-      
+    <> 
       <Modal
         isOpen={isOpen}
         onClose={onClose}
@@ -210,4 +210,4 @@ const OrderRegister = () => {
   );
 };
 
-export default OrderRegister;
+export default ModalOrderRegister;
