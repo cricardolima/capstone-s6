@@ -10,6 +10,7 @@ interface IOrderProvidertData {
   unpickedOrders: IOrderBody[];
   newOrder: (data: IOrderData) => void;
   pickupOrder: (orderId: number) => void;
+  rateOrder: (orderId: number, data: IRatingData) => void;
 }
 
 interface IOrderProviderProps {
@@ -21,9 +22,19 @@ export interface IRatingData {
   commentary: string;
 }
 
+export interface ICheckoutData {
+  status: number;
+  commentary: string;
+}
+
 interface IVehicleData {
   model: string;
   year: number;
+}
+
+interface IPickedUpByData {
+  id: number;
+  company_name: string;
 }
 
 export interface IOrderBody {
@@ -32,7 +43,7 @@ export interface IOrderBody {
   vehicle: IVehicleData;
   address: string;
   status: "pending" | "in_progress" | "concluded" | "sent_to_rescue";
-  pickedUpBy?: number; // id da empresa que pegou a ordem
+  pickedUpBy?: IPickedUpByData; // informaçções da empresa que pegou a ordem
   diagnostic?: string;
   rating?: IRatingData;
   userId: number;
@@ -53,9 +64,15 @@ interface User {
 }
 
 export interface IUpdateOrderBody {
-  pickedUpBy?: number;
+  pickedUpBy?: IPickedUpByData;
   rating?: IRatingData;
   diagnostic?: string;
+}
+
+interface IUpdateParams {
+  orderId: number;
+  body: IUpdateOrderBody;
+  successMessage: string;
 }
 
 const OrderContext = createContext<IOrderProvidertData>(
@@ -105,7 +122,9 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     }
 
     if (type === "company") {
-      filteredOrders = allOrders.filter(({ pickedUpBy }) => pickedUpBy === id);
+      filteredOrders = allOrders.filter(
+        ({ pickedUpBy }) => pickedUpBy?.id === id
+      );
 
       setCompanyOrders(filteredOrders);
     }
@@ -116,7 +135,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
 
     if (type === "company") {
       const filteredOrders: IOrderBody[] = allOrders.filter(
-        ({ pickedUpBy }) => pickedUpBy !== id
+        ({ pickedUpBy }) => pickedUpBy?.id !== id
       );
 
       setUnpickedOrders(filteredOrders);
@@ -153,26 +172,68 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
       });
   };
 
-  const updateOrder = (data: IUpdateOrderBody) => {};
-
-  const pickupOrder = (orderId: number) => {
-    const { id } = getUserInfo();
+  const updateOrder = (updateParams: IUpdateParams) => {
+    const { orderId, body, successMessage } = updateParams;
 
     const endpoint: string = `${mainEndpoint}/${orderId}`;
 
-    const data: IUpdateOrderBody = {
-      pickedUpBy: id,
-    };
-
     api
-      .patch(endpoint, data, authorization())
+      .patch(endpoint, body, authorization())
       .then(() => {
         updateStates();
-        toast({ title: "Deu Show", status: "success", isClosable: true });
+        toast({
+          title: successMessage,
+          status: "success",
+          isClosable: true,
+        });
       })
-      .catch(() =>
-        toast({ title: "Deu Ruim", status: "error", isClosable: true })
-      );
+      .catch(({ response }) => {
+        toast({ title: response.data, status: "error", isClosable: true });
+      });
+  };
+
+  const pickupOrder = (orderId: number) => {
+    const { id, company_name } = getUserInfo();
+
+    const body: IUpdateOrderBody = {
+      pickedUpBy: { id, company_name },
+    };
+
+    const updateParams: IUpdateParams = {
+      orderId,
+      body,
+      successMessage: "Ordem criada com sucesso!",
+    };
+
+    updateOrder(updateParams);
+  };
+
+  const rateOrder = (orderId: number, data: IRatingData) => {
+    const body: IUpdateOrderBody = {
+      rating: data,
+    };
+
+    const updateParams: IUpdateParams = {
+      orderId,
+      body,
+      successMessage: "Obrigado pela avaliação!",
+    };
+
+    updateOrder(updateParams);
+  };
+
+  const checkoutOrder = (orderId: number, data: IRatingData) => {
+    const body: IUpdateOrderBody = {
+      rating: data,
+    };
+
+    const updateParams: IUpdateParams = {
+      orderId,
+      body,
+      successMessage: "Obrigado pela avaliação!",
+    };
+
+    updateOrder(updateParams);
   };
 
   const data = {
@@ -181,6 +242,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     unpickedOrders,
     newOrder,
     pickupOrder,
+    rateOrder,
   };
 
   return <OrderContext.Provider value={data} {...{ children }} />;
