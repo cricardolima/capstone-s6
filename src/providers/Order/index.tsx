@@ -11,6 +11,8 @@ interface IOrderProvidertData {
   newOrder: (data: IOrderData) => void;
   pickupOrder: (orderId: number) => void;
   rateOrder: (orderId: number, data: IRatingData) => void;
+  checkoutOrder: (orderId: number, data: ICheckoutData) => void;
+  deleteOrder: (orderId: number) => void;
 }
 
 interface IOrderProviderProps {
@@ -19,11 +21,6 @@ interface IOrderProviderProps {
 
 export interface IRatingData {
   rate: number;
-  commentary: string;
-}
-
-export interface ICheckoutData {
-  status: number;
   commentary: string;
 }
 
@@ -48,6 +45,9 @@ export interface IOrderBody {
   rating?: IRatingData;
   userId: number;
 }
+
+export interface ICheckoutData
+  extends Pick<IOrderBody, "status" | "diagnostic"> {}
 
 export interface IOrderData
   extends Omit<IOrderBody, "rating" | "status" | "pickedUpBy" | "userId"> {}
@@ -222,18 +222,36 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     updateOrder(updateParams);
   };
 
-  const checkoutOrder = (orderId: number, data: IRatingData) => {
+  const checkoutOrder = (orderId: number, data: ICheckoutData) => {
     const body: IUpdateOrderBody = {
-      rating: data,
+      ...data,
     };
 
     const updateParams: IUpdateParams = {
       orderId,
       body,
-      successMessage: "Obrigado pela avaliação!",
+      successMessage: "Ordem fechada!",
     };
 
     updateOrder(updateParams);
+  };
+
+  const deleteOrder = (orderId: number) => {
+    const endpoint: string = `${mainEndpoint}/${orderId}`;
+
+    api
+      .delete(endpoint, authorization())
+      .then(() => {
+        updateStates();
+        toast({
+          title: "Ordem deletada!",
+          status: "success",
+          isClosable: true,
+        });
+      })
+      .catch(({ response }) => {
+        toast({ title: response.data, status: "error", isClosable: true });
+      });
   };
 
   const data = {
@@ -243,6 +261,8 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     newOrder,
     pickupOrder,
     rateOrder,
+    checkoutOrder,
+    deleteOrder,
   };
 
   return <OrderContext.Provider value={data} {...{ children }} />;
