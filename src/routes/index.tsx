@@ -6,6 +6,7 @@ import { RegisterCompany } from "../pages/RegisterCompany";
 import { RegisterUser } from "../pages/RegisterUser";
 import DashboardRoute from "./dashboardRoute";
 import AuthRoute from "./routes";
+import { DashboardUser } from "../pages/DashboardUser";
 import { DashboardWorker } from "../pages/DashboardWorker";
 
 export const Routes = () => {
@@ -16,7 +17,7 @@ export const Routes = () => {
       <AuthRoute path="/login" component={Login} />
       <AuthRoute path="/registerUser" component={RegisterUser} />
       <AuthRoute path="/registerCompany" component={RegisterCompany} />
-      {/* <AuthRoute isPrivate path="/dashboard/user" component={UserDashboard} /> */}
+      <AuthRoute path="/dashboard/user" component={DashboardUser} />
       <AuthRoute
         path="/dashboard/worker"
         component={DashboardWorker}
