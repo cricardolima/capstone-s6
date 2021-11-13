@@ -22,6 +22,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
 
+import { FaEnvelope, FaLock } from "react-icons/fa";
+
 interface RegisterUserData {
   name: string;
   email: string;
@@ -142,6 +144,7 @@ export const RegisterUser = () => {
               type="email"
               error={errors.email}
               {...register("email")}
+              icon={FaEnvelope}
             />
             {!errors.email && (
               <Text ml="1" color="secondary">
@@ -173,6 +176,7 @@ export const RegisterUser = () => {
               type="password"
               error={errors.password}
               {...register("password")}
+              icon={FaLock}
             />
             {!errors.password && (
               <Text ml="1" color="secondary">
@@ -188,6 +192,7 @@ export const RegisterUser = () => {
               type="password"
               error={errors.passwordTwo}
               {...register("passwordTwo")}
+              icon={FaLock}
             />
           </Box>
           <Button
