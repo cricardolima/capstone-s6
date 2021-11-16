@@ -16,13 +16,14 @@ import {
   FormErrorMessage,
   Textarea,
   Input,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import api from "../../services/api";
 import { useUserAuth } from "../../providers/UserAuth";
+import { orderIssueOptions } from "../../utils/orderIssueOptions";
 
 interface IOrderData {
   model: string;
@@ -40,13 +41,13 @@ const orderSchema = yup.object().shape({
   address: yup.string().required("Campo obrigatório"),
 });
 
-const defaultValues:IOrderData  = {
+const defaultValues: IOrderData = {
   model: "",
   year: "",
   issue: "",
   description: "",
   address: "",
-}
+};
 
 interface DisclosureData {
   isOpen: boolean;
@@ -54,10 +55,8 @@ interface DisclosureData {
   onOpen: () => void;
 }
 
-console.log(orderSchema)
-
 const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
-  const {user, accessToken} = useUserAuth();
+  const { user, accessToken } = useUserAuth();
 
   const commonStyle = {
     _placeholder: { color: "placeholder" },
@@ -68,25 +67,23 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
     bg: "bgInput",
   };
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState,
-  } = useForm<IOrderData>({ resolver: yupResolver(orderSchema), defaultValues: defaultValues  } );
+  const { register, handleSubmit, reset, formState } = useForm<IOrderData>({
+    resolver: yupResolver(orderSchema),
+    defaultValues: defaultValues,
+  });
 
-  const { errors, isSubmitSuccessful  } = formState;
+  const { errors, isSubmitSuccessful } = formState;
 
   React.useEffect(() => {
     if (isSubmitSuccessful) {
       reset(defaultValues);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formState, reset]);
 
   const handleRegister = (data: IOrderData) => {
     onClose();
-    const {issue, description, address, model, year } = data;
+    const { issue, description, address, model, year } = data;
 
     const body = {
       title: issue,
@@ -94,26 +91,40 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
       address,
       rating: {},
       status: "pending",
-      vehicle: {model, year},
+      vehicle: { model, year },
       userId: user?.id,
-    }
-    api.post("/orders", body,{ headers:{ Authorization: `Bearer ${accessToken}` }})
-    .then(() => console.log("Deu Show"))
-    .catch(()=> console.log("Deu Ruim"))
+    };
+    api
+      .post("/orders", body, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then(() => console.log("Deu Show"))
+      .catch(() => console.log("Deu Ruim"));
+  };
+
+  const handleCloseModal = () => {
+    onClose();
+    reset(defaultValues);
   };
 
   return (
-    <> 
+    <>
       <Modal
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={handleCloseModal}
         size="sm"
         closeOnOverlayClick={false}
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="title" textAlign="center" fontSize="2xl"> Novo Chamado </ModalHeader>
-          <ModalCloseButton  bg="error" color="white" _hover={{bg: "placeholder"}} />
+          <ModalHeader color="title" textAlign="center" fontSize="2xl">
+            Novo Chamado
+          </ModalHeader>
+          <ModalCloseButton
+            bg="error"
+            color="white"
+            _hover={{ bg: "placeholder" }}
+          />
           <ModalBody>
             <Stack
               as="form"
@@ -122,9 +133,8 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
               direction="column"
               spacing={3}
             >
-                <Text textAlign="center" fontSize="xl" children="Veículo" />
-              <Stack 
-              spacing={2} direction="row" >
+              <Text textAlign="center" fontSize="xl" children="Veículo" />
+              <Stack spacing={2} direction="row">
                 <FormControl isInvalid={!!errors.model} id="model">
                   <FormLabel fontSize="14px"> Modelo </FormLabel>
                   <Input
@@ -133,21 +143,21 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
                     {...register("model")}
                     {...commonStyle}
                   />
-                <FormErrorMessage> {errors.model?.message} </FormErrorMessage>
-              </FormControl>
-              
-                <FormControl w="unset"  isInvalid={!!errors.year} id="year">
-                  <FormLabel fontSize="14px" > Ano </FormLabel>
+                  <FormErrorMessage> {errors.model?.message} </FormErrorMessage>
+                </FormControl>
+
+                <FormControl w="unset" isInvalid={!!errors.year} id="year">
+                  <FormLabel fontSize="14px"> Ano </FormLabel>
                   <Input
-                  w="80px"
+                    w="80px"
                     textAlign="center"
                     placeholder="2017"
                     type="number"
                     {...register("year")}
                     {...commonStyle}
                   />
-                <FormErrorMessage> {errors.year?.message} </FormErrorMessage>
-              </FormControl>
+                  <FormErrorMessage> {errors.year?.message} </FormErrorMessage>
+                </FormControl>
               </Stack>
 
               <FormControl id="issue" isInvalid={!!errors.issue}>
@@ -160,9 +170,9 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
                   {...register("issue")}
                   {...commonStyle}
                 >
-                  <option value="Motor de arranque"> Motor de arranque </option>
-                  <option value="Não liga mais"> Não liga mais </option>
-                  <option value="Pneu furado"> Pneu furado </option>
+                  {orderIssueOptions.map((issue) => (
+                    <option value={issue} children={issue} />
+                  ))}
                 </Select>
                 <FormErrorMessage> {errors.issue?.message} </FormErrorMessage>
               </FormControl>

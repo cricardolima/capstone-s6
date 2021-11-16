@@ -12,16 +12,25 @@ import { DashboardWorker } from "../pages/DashboardWorker";
 export const Routes = () => {
   return (
     <Switch>
-      <AuthRoute exact path="/" component={Home} />
-      <AuthRoute path="/login" component={Login} />
-      <AuthRoute path="/registerUser" component={RegisterUser} />
-      <AuthRoute path="/registerCompany" component={RegisterCompany} />
-      <AuthRoute exact isPrivate path="/dashboard" component={DashboardRoute} />
-      <AuthRoute isPrivate path="/dashboard/user" component={DashboardUser} />
+      <AuthRoute exact path="/" pageComponent={Home} />
+      <AuthRoute path="/login" pageComponent={Login} />
+      <AuthRoute path="/registerUser" pageComponent={RegisterUser} />
+      <AuthRoute path="/registerCompany" pageComponent={RegisterCompany} />
+      <AuthRoute
+        exact
+        isPrivate
+        path="/dashboard"
+        pageComponent={DashboardRoute}
+      />
+      <AuthRoute
+        isPrivate
+        path="/dashboard/user"
+        pageComponent={DashboardUser}
+      />
       <AuthRoute
         isPrivate
         path="/dashboard/worker"
-        component={DashboardWorker}
+        pageComponent={DashboardWorker}
       />
     </Switch>
   );

@@ -22,6 +22,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
 
+import { FaEnvelope, FaLock } from "react-icons/fa";
+
 interface RegisterUserData {
   name: string;
   email: string;
@@ -71,17 +73,18 @@ export const RegisterUser = () => {
     <Flex
       width="100%"
       padding="10px 0px"
-      height={["220vh", "100vh", "100vh"]}
+     height={["", "100vh", "100vh"]}
       flexDirection={["column", "column", "row"]}
       justifyContent="center"
       alignItems="center"
       bgGradient={[
-        "linear(to-b, baseDefault 40%,secondary 0%)",
+        "linear(to-b, secondary 100%,baseDefault 0%)",
         "linear(to-t, secondary 50%,baseDefault 50%)",
         "linear(to-r, baseDefault 50%, secondary 50%)",
       ]}
     >
       <Flex
+        display={["none","flex","flex",]}
         flex="1"
         justifyContent={["flex-start", "center", "center"]}
         alignItems="center"
@@ -101,7 +104,14 @@ export const RegisterUser = () => {
           flexível e atrativo de gerenciar seus projetos em uma única plataforma
         </Text>
       </Flex>
-      <Flex flex="1" justifyContent="center">
+      <Flex flex="1" justifyContent="center" flexDirection="column" gridGap="10px" alignItems="center">
+        <Flex  
+          display={["flex","none","none","none"]}
+          width="90%" 
+          justifyContent="flex-start" 
+          alignItems="flex-start">
+          <ButtonBack />
+        </Flex>
         <Stack
           as="form"
           onSubmit={handleSubmit(handleRegisterUser)}
@@ -147,6 +157,7 @@ export const RegisterUser = () => {
               type="email"
               error={errors.email}
               {...register("email")}
+              icon={FaEnvelope}
             />
             {!errors.email && (
               <Text ml="1" color="secondary">
@@ -177,6 +188,7 @@ export const RegisterUser = () => {
               type="password"
               error={errors.password}
               {...register("password")}
+              icon={FaLock}
             />
             {!errors.password && (
               <Text ml="1" color="secondary">
@@ -192,6 +204,7 @@ export const RegisterUser = () => {
               type="password"
               error={errors.passwordTwo}
               {...register("passwordTwo")}
+              icon={FaLock}
             />
           </Box>
           <Button

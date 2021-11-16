@@ -11,6 +11,7 @@ import {
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
 import consertaLogo from "../../assets/logo.svg";
+import { FaEnvelope, FaLock,FaPhoneAlt } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import {useUserAuth} from "../../providers/UserAuth"
@@ -81,6 +82,28 @@ export const RegisterCompany = () => {
         padding="20px"
         boxShadow="0px 4px 8px 4px rgba(0, 0, 0, 0.25);"
       >
+              <Box width="100%" marginBottom="20px">
+                <ButtonBack />
+              </Box>
+        <Flex 
+          flexDirection={["column","row","row","row"]}
+          alignItems="center"
+          gridGap={["10px"]}
+          >
+              <Box display="flex" justifyContent="center" >
+                <Img width="80px" src={consertaLogo} alt="Conserta Logo!" />
+              </Box>
+              <Box textAlign="center" paddingBottom="20px" >
+                <Text
+                  fontSize={["lg", "2xl", "2xl"]}
+                  fontWeight="bold"
+                  color="text"
+                  textAlign={["center", "start", "start"]}
+                >
+                  Cadastro de Empresa
+                </Text>
+              </Box>
+        </Flex>
         <Flex
           width="100%"
           flexDirection={["column", "column", "row"]}
@@ -88,21 +111,8 @@ export const RegisterCompany = () => {
           gridGap="10px"
         >
           <Stack flex="1" alignItems="center">
-            <Flex
-              width="100%"
-              height="60px"
-              margin="10px 0px"
-              paddingRight="40px"
-              justifyContent="space-between"
-            >
-              <Flex flex="1" justifyContent="flex-start" alignItems="center">
-                <ButtonBack />
-              </Flex>
-              <Flex flex="1" justifyContent="flex-end" alignItems="center">
-                <Img width="80px" src={consertaLogo} alt="Conserta Logo!" />
-              </Flex>
-            </Flex>
-            <Box w="100%" maxWidth="400px" margin="0 auto">
+         
+            <Box w="100%" maxWidth="400px">
               <Input
                 placeholder="Razão Social"
                 label={"Razão Social"}
@@ -111,7 +121,7 @@ export const RegisterCompany = () => {
                 {...register("company_name")}
               />
             </Box>
-            <Box w="100%" maxWidth="400px" margin="0 auto">
+            <Box w="100%" maxWidth="400px" >
               <Input
                 placeholder="CNPJ"
                 label={"CNPJ :"}
@@ -120,7 +130,7 @@ export const RegisterCompany = () => {
                 {...register("cnpj")}
               />
             </Box>
-            <Box w="100%" maxWidth="400px" margin="0 auto">
+            <Box w="100%" maxWidth="400px" >
               <Input
                 placeholder="Nome Fantasia"
                 label={"Nome Fantasia :"}
@@ -128,42 +138,27 @@ export const RegisterCompany = () => {
                 {...register("name")}
               />
             </Box>
-            <Box w="100%" maxWidth="400px" margin="0 auto">
+            <Box w="100%" maxWidth="400px" >
               <Input
                 placeholder="(85) 9 1234-5678 "
                 label={"Telefone:"}
                 type="text"
                 error={errors.phone}
                 {...register("phone")}
+                icon={FaPhoneAlt}
               />
             </Box>
           </Stack>
 
           <Stack flex="1">
-            <Flex
-              width="100%"
-              height="60px"
-              margin="10px 0px"
-              justifyContent="space-between"
-            >
-              <Flex flex="1" justifyContent="center" alignItems="center">
-                <Text
-                  fontSize={["lg", "2xl", "2xl"]}
-                  fontWeight="bold"
-                  color="text"
-                  textAlign={["center", "start", "start"]}
-                >
-                  Cadastro de Empresa ou Empreendedor Individual
-                </Text>
-              </Flex>
-            </Flex>
-            <Box w="100%" maxWidth="400px" margin="0 auto">
+            <Box w="100%" maxWidth="400px">
               <Input
                 placeholder="Email"
                 label={"Email :"}
                 type="email"
                 error={errors.email}
                 {...register("email")}
+                icon={FaEnvelope}
               />
               {!errors.email && (
                 <Text ml="1" mt="1" color="secondary">
@@ -171,22 +166,24 @@ export const RegisterCompany = () => {
                 </Text>
               )}
             </Box>
-            <Box w="100%" maxWidth="400px" margin="0 auto">
+            <Box w="100%" maxWidth="400px" >
               <Input
                 placeholder="Senha"
                 label={"Senha :"}
                 type="password"
                 error={errors.password}
                 {...register("password")}
+                icon={FaLock}
               />
             </Box>
-            <Box w="100%" maxWidth="400px" margin="0 auto">
+            <Box w="100%" maxWidth="400px" >
               <Input
                 placeholder="Confirmação de Senha"
                 label={"Confirmação de Senha :"}
                 type="password"
                 error={errors.passwordTwo}
                 {...register("passwordTwo")}
+                icon={FaLock}
               />
             </Box>
           </Stack>
