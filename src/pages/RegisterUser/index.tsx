@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react";
 import {
   Flex,
   Text,
@@ -15,7 +15,7 @@ import consertaLogo from "../../assets/logo.svg";
 
 import { Link } from "react-router-dom";
 
-import {useUserAuth} from "../../providers/UserAuth"
+import { useUserAuth } from "../../providers/UserAuth";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -44,23 +44,28 @@ const registerUserSchema = yup.object().shape({
     .string()
     .required("Confirmar Senha Obrigatório")
     .oneOf([yup.ref("password"), null], "As senhas não correspondem!"),
-    cpf : yup.string().required("Campo obrigatório!").matches(/([0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2})/gi,"Somente números Exemplo : 12345678900")
+  cpf: yup
+    .string()
+    .required("Campo obrigatório!")
+    .matches(
+      /([0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2})/gi,
+      "Somente números Exemplo : 12345678900"
+    ),
 });
 
- 
 export const RegisterUser = () => {
-  const {registerUser} =  useUserAuth()
+  const { registerUser } = useUserAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerUserSchema) });
   const handleRegisterUser = (data: RegisterUserData) => {
-        const newData = {
-          ...data,
-          type:"user"
-        }
-    registerUser(newData)
+    const newData = {
+      ...data,
+      type: "user",
+    };
+    registerUser(newData);
   };
   return (
     <Flex
@@ -149,7 +154,6 @@ export const RegisterUser = () => {
               </Text>
             )}
           </Box>
-
 
           <Box w="100%">
             <Input
