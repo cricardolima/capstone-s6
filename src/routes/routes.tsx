@@ -1,20 +1,18 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, RouteProps } from "react-router-dom";
 
-interface AuthRouteProps {
-  component: React.ElementType;
+interface AuthRouteProps extends RouteProps {
+  pageComponent: React.ElementType;
   isPrivate?: boolean;
-  path: string;
-  exact?: boolean;
 }
 
 const AuthRoute = ({
-  component: Component,
+  pageComponent: Component,
   isPrivate,
   ...rest
 }: AuthRouteProps) => {
   const token: string | null = JSON.parse(
-    `${localStorage.getItem("@app_token")}`
+    `${localStorage.getItem("@conserta:accessToken")}`
   );
 
   // A prop render trata como será a renderição do componente Route.
