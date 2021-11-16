@@ -13,12 +13,13 @@ export const Routes = () => {
   return (
     <Switch>
       <AuthRoute exact path="/" component={Home} />
-      <AuthRoute exact isPrivate path="/dashboard" component={DashboardRoute} />
       <AuthRoute path="/login" component={Login} />
       <AuthRoute path="/registerUser" component={RegisterUser} />
       <AuthRoute path="/registerCompany" component={RegisterCompany} />
-      <AuthRoute path="/dashboard/user" component={DashboardUser} />
+      <AuthRoute exact isPrivate path="/dashboard" component={DashboardRoute} />
+      <AuthRoute isPrivate path="/dashboard/user" component={DashboardUser} />
       <AuthRoute
+        isPrivate
         path="/dashboard/worker"
         component={DashboardWorker}
       />
