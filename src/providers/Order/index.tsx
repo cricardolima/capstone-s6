@@ -35,6 +35,7 @@ interface IPickedUpByData {
 }
 
 export interface IOrderBody {
+  id?: number;
   title: string;
   description: string;
   vehicle: IVehicleData;
@@ -50,7 +51,10 @@ export interface ICheckoutData
   extends Pick<IOrderBody, "status" | "diagnostic"> {}
 
 export interface IOrderData
-  extends Omit<IOrderBody, "rating" | "status" | "pickedUpBy" | "userId"> {}
+  extends Omit<
+    IOrderBody,
+    "id" | "rating" | "status" | "pickedUpBy" | "userId"
+  > {}
 
 interface User {
   email: string;
