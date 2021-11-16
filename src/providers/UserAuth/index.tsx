@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import api from "../../services/api";
 import { useToast } from "@chakra-ui/react";
 
-
 interface User {
   email: string;
   name: string;
@@ -31,6 +30,7 @@ interface UserAuthData {
   signIn: (credentials: SignInCredentials) => Promise<void>;
   registerUser: (credentials: RegisterUser) => Promise<void>;
   registerCompany: (credentials: RegisterCompany) => Promise<void>;
+  logout: () => void;
 }
 
 interface SignInCredentials {
@@ -73,37 +73,37 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
   });
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await 
-                          api.post("/login", { email, password })
-                          .then((response)=>{
-                            toast({
-                              position: "top",
-                              title: "Sucesso ao Fazer Login!",
-                              description: "Bem vindo ao Conserta eu Carro!",
-                              status: "success",
-                              duration: 5000,
-                              isClosable: true,
-                            });
-                            return response
-                          })
-                          .catch((error)=>{
-                            toast({
-                              position: "top",
-                              title: "Erro ao Fazer Login!",
-                              description: "Verifique os dados e tente novamente!",
-                              status: "error",
-                              duration: 5000,
-                              isClosable: true,
-                            });
-                            return error
-                          })
-                          
-    if(response.data){
+    const response = await api
+      .post("/login", { email, password })
+      .then((response) => {
+        toast({
+          position: "top",
+          title: "Sucesso ao Fazer Login!",
+          description: "Bem vindo ao Conserta eu Carro!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        return response;
+      })
+      .catch((error) => {
+        toast({
+          position: "top",
+          title: "Erro ao Fazer Login!",
+          description: "Verifique os dados e tente novamente!",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+        return error;
+      });
+
+    if (response.data) {
       const { accessToken, user } = response.data;
-      
+
       localStorage.setItem("@conserta:accessToken", accessToken);
       localStorage.setItem("@conserta:user", JSON.stringify(user));
-      
+
       setData({ accessToken, user });
       history.push("/dashboard/user");
     }
@@ -186,6 +186,21 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
     [toast, history]
   );
 
+  const logout = () => {
+    localStorage.clear();
+
+    toast({
+      position: "top",
+      title: "Você saiu da aplicação!",
+      description: "Queremos que você não precise voltar!",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+
+    history.push("/");
+  };
+
   return (
     <UserAuthContext.Provider
       value={{
@@ -194,6 +209,7 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
         accessToken: data.accessToken,
         registerUser,
         registerCompany,
+        logout,
       }}
     >
       {children}
