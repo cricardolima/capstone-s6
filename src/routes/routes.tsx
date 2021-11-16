@@ -14,7 +14,7 @@ const AuthRoute = ({
   ...rest
 }: AuthRouteProps) => {
   const token: string | null = JSON.parse(
-    `${localStorage.getItem("@app_token")}`
+    `${localStorage.getItem("@conserta:accessToken")}`
   );
 
   // A prop render trata como será a renderição do componente Route.

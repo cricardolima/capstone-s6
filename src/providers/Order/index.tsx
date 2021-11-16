@@ -188,7 +188,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
         });
       })
       .catch(({ response }) => {
-        toast({ title: response.data, status: "error", isClosable: true });
+        toast({ position:"top",title: response.data, status: "error", isClosable: true });
       });
   };
 
