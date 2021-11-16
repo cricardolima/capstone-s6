@@ -182,13 +182,19 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
       .then(() => {
         updateStates();
         toast({
+          position: "top",
           title: successMessage,
           status: "success",
           isClosable: true,
         });
       })
       .catch(({ response }) => {
-        toast({ position:"top",title: response.data, status: "error", isClosable: true });
+        toast({
+          position: "top",
+          title: response.data,
+          status: "error",
+          isClosable: true,
+        });
       });
   };
 

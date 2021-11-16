@@ -112,10 +112,10 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
             <Slider
               onChangeEnd={(value) => setRate(value)}
               className="resposta"
-              defaultValue={50}
-              min={0}
-              max={100}
-              step={25}
+              defaultValue={3}
+              min={1}
+              max={5}
+              step={1}
             >
               <Flex
                 justifyContent="space-between"
