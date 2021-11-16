@@ -35,6 +35,7 @@ interface IPickedUpByData {
 }
 
 export interface IOrderBody {
+  id?: number;
   title: string;
   description: string;
   vehicle: IVehicleData;
@@ -50,7 +51,10 @@ export interface ICheckoutData
   extends Pick<IOrderBody, "status" | "diagnostic"> {}
 
 export interface IOrderData
-  extends Omit<IOrderBody, "rating" | "status" | "pickedUpBy" | "userId"> {}
+  extends Omit<
+    IOrderBody,
+    "id" | "rating" | "status" | "pickedUpBy" | "userId"
+  > {}
 
 interface User {
   email: string;
@@ -182,13 +186,19 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
       .then(() => {
         updateStates();
         toast({
+          position: "top",
           title: successMessage,
           status: "success",
           isClosable: true,
         });
       })
       .catch(({ response }) => {
-        toast({ title: response.data, status: "error", isClosable: true });
+        toast({
+          position: "top",
+          title: response.data,
+          status: "error",
+          isClosable: true,
+        });
       });
   };
 
