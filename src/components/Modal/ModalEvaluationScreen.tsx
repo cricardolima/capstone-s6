@@ -1,5 +1,4 @@
-import React from "react";
-import { TiArrowSortedDown } from "react-icons/ti";
+import React, { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -9,20 +8,20 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Stack,
-  FormControl,
   FormLabel,
-  Select,
-  FormErrorMessage,
   Textarea,
-  Text
+  Flex,
+  Text,
+  Slider,
+  SliderTrack,
+  Box,
+  SliderFilledTrack,
+  SliderThumb
 } from "@chakra-ui/react";
-import {Input} from "../../components/Input"
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import api from "../../services/api";
-import { useUserAuth } from "../../providers/UserAuth";
 
 interface IOrderData {
   description: string;
@@ -41,12 +40,11 @@ interface DisclosureData {
   onClose: () => void;
   onOpen: () => void;
 }
-
+ 
 console.log(orderSchema)
 
 const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
-//  const {user, accessToken} = useUserAuth();
-
+  const [feedback,setFeedback] = useState(3)
   const {
     register,
     handleSubmit,
@@ -64,8 +62,13 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
   }, [formState, reset]);
 
   const handleEvaluation = (data: IOrderData) => {
-   // onClose();
-   console.log(data)
+    onClose()
+    const newData = {
+      ...data,
+      feedback
+    }
+   console.log(newData)
+   
   }
   return (
     <> 
@@ -77,22 +80,54 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
       >
         <ModalOverlay />
         <ModalContent as="form" onSubmit={handleSubmit(handleEvaluation)}>
-          <ModalHeader color="title" textAlign="center" fontSize="2xl"> Avaliação de Serviço</ModalHeader>
+          <ModalHeader color="title" textAlign="center" fontSize="2xl">
+              Avaliação de Serviço
+            <Text color="text" fontWeight="100" fontSize="lg">Avalie de 1 a 5 o serviço!</Text>
+          </ModalHeader>
+          
           <ModalCloseButton  bg="error" color="white" _hover={{bg: "placeholder"}} />
           <ModalBody>
-          <FormLabel fontSize="14px"> Descrição :</FormLabel>
-          <Textarea
-              borderColor="text"
-              _hover={{ borderColor: "#000000" }}
-              _focus={{ borderColor: "secondary" }}
-              _placeholder={{ color: "placeholder" }}
-              placeholder="Adicione algum comentário aqui..."
-              height="120"
-              {...register("description")}
-            />
-             {errors.description?.message && (
-              <Text color="error">{errors.description?.message}</Text>
-            )}
+          <Slider 
+            onChangeEnd={(value)=> setFeedback(value)} 
+            className="resposta"
+            defaultValue={50} 
+            min={0} 
+            max={100} 
+            step={25}
+            >
+            <Flex justifyContent="space-between" transform={"translateY(-30px)"}  >
+            <Text >1</Text>
+            <Text >2</Text>
+            <Text >3</Text>
+            <Text >4</Text>
+            <Text >5</Text>
+            </Flex>
+            <SliderTrack bg="#e0e0e0" >
+              <Box position="relative" right={10} bgColor="yellow.300"  />
+              <SliderFilledTrack bg="secondary" />
+            </SliderTrack>
+            <SliderThumb boxSize={6} >
+              <Box 
+                border="12px solid"
+                borderColor="primary" 
+                borderRadius="100%" 
+                />
+                
+              </SliderThumb>
+          </Slider>
+            <FormLabel fontSize="14px"> Descrição :</FormLabel>
+            <Textarea
+                borderColor="text"
+                _hover={{ borderColor: "#000000" }}
+                _focus={{ borderColor: "secondary" }}
+                _placeholder={{ color: "placeholder" }}
+                placeholder="Adicione algum comentário aqui..."
+                height="120"
+                {...register("description")}
+              />
+              {errors.description?.message && (
+                <Text color="error">{errors.description?.message}</Text>
+              )}
           </ModalBody>
           <ModalFooter justifyContent="center">
           <Button
@@ -102,6 +137,7 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
             bgColor="secondary"
             _hover={{ bgColor: "primary" }}
             type="submit"
+
           > Concluir
           </Button>
           </ModalFooter>
