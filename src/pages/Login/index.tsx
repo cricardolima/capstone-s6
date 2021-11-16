@@ -20,6 +20,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
 import { useUserAuth } from "../../providers/UserAuth";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 
 interface SingInData {
   email: string;
@@ -116,6 +117,7 @@ export const Login = () => {
               type="email"
               error={errors.email}
               {...register("email")}
+              icon={FaEnvelope}
             />
           </Box>
 
@@ -126,6 +128,7 @@ export const Login = () => {
               type="password"
               error={errors.password}
               {...register("password")}
+              icon={FaLock}
             />
           </Box>
           <Button

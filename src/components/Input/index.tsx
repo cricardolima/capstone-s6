@@ -61,7 +61,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
 
       <InputGroup flexDirection="column">
         {Icon && (
-          <InputLeftElement color={inputVariation[variation]} mt="1">
+          <InputLeftElement color={"placeholder"} mt="2.5">
             <Icon />
           </InputLeftElement>
         )}
@@ -87,7 +87,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         />
         {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
       </InputGroup>
-    </FormControl>
+    </FormControl>  
   );
 };
 
