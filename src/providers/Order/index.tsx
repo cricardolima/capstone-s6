@@ -13,6 +13,7 @@ interface IOrderProvidertData {
   rateOrder: (orderId: number, data: IRatingData) => void;
   checkoutOrder: (orderId: number, data: ICheckoutData) => void;
   deleteOrder: (orderId: number) => void;
+  updateOrderStates: () => void;
 }
 
 interface IOrderProviderProps {
@@ -146,7 +147,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     }
   };
 
-  const updateStates = () => {
+  const updateOrderStates = () => {
     getAllOrders();
     getCorrespondingOrders();
     getUnpickedOrders();
@@ -164,7 +165,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     api
       .post(mainEndpoint, body, authorization())
       .then(() => {
-        updateStates();
+        updateOrderStates();
         toast({
           title: "Ordem criada com sucesso!",
           status: "success",
@@ -184,7 +185,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     api
       .patch(endpoint, body, authorization())
       .then(() => {
-        updateStates();
+        updateOrderStates();
         toast({
           position: "top",
           title: successMessage,
@@ -252,7 +253,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     api
       .delete(endpoint, authorization())
       .then(() => {
-        updateStates();
+        updateOrderStates();
         toast({
           title: "Ordem deletada!",
           status: "success",
@@ -273,6 +274,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     rateOrder,
     checkoutOrder,
     deleteOrder,
+    updateOrderStates,
   };
 
   return <OrderContext.Provider value={data} {...{ children }} />;
