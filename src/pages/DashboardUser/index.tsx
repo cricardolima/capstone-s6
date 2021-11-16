@@ -27,16 +27,16 @@ export const DashboardUser = () => {
 
   return (
     <>
-      <HStack ml="2%" mt="2%" spacing={[2, 5, 10]}>
+      <HStack ml="2%" mt="2%" spacing={10}>
         <Box>
           <Image src={logo} alt="Logo" h="140px" w="120px" />
         </Box>
-        <VStack alignItems="flex-start" w={["50%", "65%", "75%"]}>
+        <VStack alignItems="flex-start" w="86%">
           <Text as="h3" color="text" fontWeight="bold">
             Dashboard Usuário
           </Text>
           <Button
-            w={["170px", "200px"]}
+            w="238px"
             h="50px"
             color="baseDefault"
             bgColor="secondary"
