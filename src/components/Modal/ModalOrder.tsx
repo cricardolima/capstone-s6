@@ -21,11 +21,10 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import api from "../../services/api";
-import { useUserAuth } from "../../providers/UserAuth";
 import { orderIssueOptions } from "../../utils/orderIssueOptions";
+import { useOrder, IOrderData } from "./../../providers/Order";
 
-interface IOrderData {
+interface IOrderFormData {
   model: string;
   year: string;
   issue: string;
@@ -41,7 +40,7 @@ const orderSchema = yup.object().shape({
   address: yup.string().required("Campo obrigatório"),
 });
 
-const defaultValues: IOrderData = {
+const defaultValues: IOrderFormData = {
   model: "",
   year: "",
   issue: "",
@@ -56,7 +55,7 @@ interface DisclosureData {
 }
 
 const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
-  const { user, accessToken } = useUserAuth();
+  const { newOrder } = useOrder();
 
   const commonStyle = {
     _placeholder: { color: "placeholder" },
@@ -67,7 +66,7 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
     bg: "bgInput",
   };
 
-  const { register, handleSubmit, reset, formState } = useForm<IOrderData>({
+  const { register, handleSubmit, reset, formState } = useForm<IOrderFormData>({
     resolver: yupResolver(orderSchema),
     defaultValues: defaultValues,
   });
@@ -81,25 +80,18 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formState, reset]);
 
-  const handleRegister = (data: IOrderData) => {
+  const handleRegister = (data: IOrderFormData) => {
     onClose();
     const { issue, description, address, model, year } = data;
 
-    const body = {
+    const body: IOrderData = {
       title: issue,
       description,
       address,
-      rating: {},
-      status: "pending",
-      vehicle: { model, year },
-      userId: user?.id,
+      vehicle: { model, year: Number(year) },
     };
-    api
-      .post("/orders", body, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then(() => console.log("Deu Show"))
-      .catch(() => console.log("Deu Ruim"));
+
+    newOrder(body);
   };
 
   const handleCloseModal = () => {
@@ -170,8 +162,8 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
                   {...register("issue")}
                   {...commonStyle}
                 >
-                  {orderIssueOptions.map((issue) => (
-                    <option value={issue} children={issue} />
+                  {orderIssueOptions.map((issue, index) => (
+                    <option key={index} value={issue} children={issue} />
                   ))}
                 </Select>
                 <FormErrorMessage> {errors.issue?.message} </FormErrorMessage>
@@ -186,8 +178,7 @@ const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
                   {...commonStyle}
                 />
                 <FormErrorMessage>
-                  {" "}
-                  {errors.description?.message}{" "}
+                  {errors.description?.message}
                 </FormErrorMessage>
               </FormControl>
 
