@@ -55,8 +55,6 @@ interface DisclosureData {
   onOpen: () => void;
 }
 
-console.log(orderSchema);
-
 const ModalOrderRegister = ({ isOpen, onClose, onOpen }: DisclosureData) => {
   const { user, accessToken } = useUserAuth();
 
