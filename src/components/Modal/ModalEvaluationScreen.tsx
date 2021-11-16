@@ -13,6 +13,7 @@ import {
   Flex,
   Text,
   Slider,
+  Img,
   SliderTrack,
   Box,
   SliderFilledTrack,
@@ -22,6 +23,7 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import check from "../../assets/ok.svg"
 
 interface IOrderData {
   description: string;
@@ -80,9 +82,12 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
       >
         <ModalOverlay />
         <ModalContent as="form" onSubmit={handleSubmit(handleEvaluation)}>
-          <ModalHeader color="title" textAlign="center" fontSize="2xl">
+          <ModalHeader  mt="30px" color="title" textAlign="center" fontSize="2xl">
+            <Flex color="text" fontWeight="bold" justifyContent="center" alignItems="center">
               Avaliação de Serviço
-            <Text color="text" fontWeight="100" fontSize="lg">Avalie de 1 a 5 o serviço!</Text>
+              <Img src={check} alt="ok svg"/>
+            </Flex>
+            <Text color="text" fontWeight="100" fontSize="lg">Avalie de 1 a 5</Text>
           </ModalHeader>
           
           <ModalCloseButton  bg="error" color="white" _hover={{bg: "placeholder"}} />
@@ -115,7 +120,7 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
                 
               </SliderThumb>
           </Slider>
-            <FormLabel fontSize="14px"> Descrição :</FormLabel>
+            <FormLabel color="text" fontSize="14px"> Descrição :</FormLabel>
             <Textarea
                 borderColor="text"
                 _hover={{ borderColor: "#000000" }}
