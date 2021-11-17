@@ -1,9 +1,4 @@
-import {
-  VStack,
-  Text,
-  HStack,
-  Button,
-} from "@chakra-ui/react";
+import { VStack, Text, HStack, Button } from "@chakra-ui/react";
 import { IOrderBody, useOrder } from "../../providers/Order";
 
 interface ItemProps {
@@ -11,15 +6,8 @@ interface ItemProps {
 }
 
 export const OrderCardUnpicked = ({ item }: ItemProps) => {
-  const {
-    title,
-    description,
-    status,
-    id,
-    address,
-    vehicle
-  } = item;
-  const { pickupOrder } = useOrder()
+  const { title, description, status, id, address, vehicle } = item;
+  const { pickupOrder } = useOrder();
 
   const updateProgress = () => {
     if (status === "pending") {
@@ -38,7 +26,9 @@ export const OrderCardUnpicked = ({ item }: ItemProps) => {
   return (
     <VStack
       h={["220px"]}
-      w={["200px", "250px", "270px", "300px"]}
+      w={"100%"}
+      maxWidth="300px"
+      //w={["200px", "250px", "270px", "300px"]}
       alignItems="flex-start"
       p="20px 0px 0px 20px"
       border="2px solid"
@@ -46,7 +36,7 @@ export const OrderCardUnpicked = ({ item }: ItemProps) => {
       color="text"
       borderColor="text"
     >
-      <Text as="h1" fontSize={["md","2xl"]} color="text" fontWeight="bold">
+      <Text as="h1" fontSize={["md", "2xl"]} color="text" fontWeight="bold">
         {title}
       </Text>
       <Text as="h6" color="text" fontSize="xs">

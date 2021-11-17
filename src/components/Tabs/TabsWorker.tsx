@@ -1,4 +1,12 @@
-import { Tabs, TabList, Tab, TabPanels, TabPanel, SimpleGrid } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  SimpleGrid,
+  Flex,
+} from "@chakra-ui/react";
 import { useOrder } from "../../providers/Order";
 import { OrderCardCompany } from "../Card/OrderCardCompany";
 import { OrderCardUnpicked } from "../Card/OrderCardUnpicked";
@@ -14,18 +22,32 @@ export const TabsWorker = () => {
       </TabList>
       <TabPanels>
         <TabPanel>
-        <SimpleGrid columns={[1, 2, 3, 5]} spacing="20px">
+          <Flex
+            width="100%"
+            maxWidth="930px"
+            justifyContent={["center", "center", "center", "flex-start"]}
+            gridGap="10px"
+            flexWrap="wrap"
+            margin="0 auto"
+          >
             {companyOrders.map((item, index) => (
               <OrderCardCompany item={item as any} key={index} />
             ))}
-          </SimpleGrid>
+          </Flex>
         </TabPanel>
         <TabPanel>
-          <SimpleGrid columns={[1, 2, 3, 5]} spacing="20px">
+          <Flex
+            width="100%"
+            maxWidth="930px"
+            justifyContent={["center", "center", "center", "flex-start"]}
+            gridGap="10px"
+            flexWrap="wrap"
+            margin="0 auto"
+          >
             {unpickedOrders.map((item, index) => (
               <OrderCardUnpicked item={item as any} key={index} />
             ))}
-          </SimpleGrid>
+          </Flex>
         </TabPanel>
       </TabPanels>
     </Tabs>

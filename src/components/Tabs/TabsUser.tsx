@@ -4,7 +4,7 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  SimpleGrid,
+  Flex,
 } from "@chakra-ui/react";
 import { OrderCard } from "../Card/OrderCardUser";
 import { useOrder } from "../../providers/Order";
@@ -19,11 +19,18 @@ export const TabsUser = () => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <SimpleGrid columns={[1, 2, 3, 5]} spacing="20px">
+          <Flex
+            width="100%"
+            maxWidth="930px"
+            justifyContent={["center", "center", "center", "flex-start"]}
+            gridGap="10px"
+            flexWrap="wrap"
+            margin="0 auto"
+          >
             {userOrders.map((item, index) => (
               <OrderCard item={item as any} key={index} />
             ))}
-          </SimpleGrid>
+          </Flex>
         </TabPanel>
       </TabPanels>
     </Tabs>

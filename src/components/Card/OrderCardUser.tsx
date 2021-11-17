@@ -61,7 +61,8 @@ export const OrderCard = ({ item }: ItemProps) => {
   return (
     <VStack
       h={["220px"]}
-      w={["200px", "250px", "270px", "300px"]}
+      w={"100%"}
+      maxWidth="300px"
       alignItems="flex-start"
       p="20px 0px 0px 10px"
       border="2px solid"
@@ -69,7 +70,7 @@ export const OrderCard = ({ item }: ItemProps) => {
       color={inputVariation[variation]}
       borderColor={inputVariation[variation]}
     >
-      <Text as="h1" fontSize={["md","2xl"]} color="text" fontWeight="bold">
+      <Text as="h1" fontSize={["md", "2xl"]} color="text" fontWeight="bold">
         {title}
       </Text>
       <Text as="h6" color="text">
