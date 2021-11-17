@@ -17,13 +17,11 @@ import logo from "../../assets/logo.svg";
 import ModalOrderRegister from "../../components/Modal/ModalOrder";
 import { RiGridFill } from "react-icons/ri";
 import { TabsUser } from "../../components/Tabs/TabsUser";
+import { useUserAuth } from "../../providers/UserAuth";
 
 export const DashboardUser = () => {
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
-
-  const logout = (path: any) => {
-    console.log(path);
-  };
+  const { logout } = useUserAuth();
 
   return (
     <>
@@ -57,7 +55,7 @@ export const DashboardUser = () => {
               <Text>Perfil</Text>
             </MenuItem>
             <MenuItem>
-              <Link onClick={() => logout("saiu")}>
+              <Link onClick={() => logout()}>
                 <Text>Sair</Text>
               </Link>
             </MenuItem>
