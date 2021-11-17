@@ -15,6 +15,8 @@ import {
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import tutorial1 from "../../assets/tutorial1.svg";
 import selectMaps from "../../assets/selectMaps.jpg";
+import maps from "../../assets/maps.jpg";
+import mapsFinal from "../../assets/mapsFinal.jpg";
 
 interface DisclosureData {
   isOpen: boolean;
@@ -23,9 +25,10 @@ interface DisclosureData {
 }
 
 const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
-  const [page, SetPage] = useState(0);
-  const handleEvaluation = () => {
+  const [page, setPage] = useState(0);
+  const handleInstruction = () => {
     onClose();
+    setPage(0);
   };
   return (
     <>
@@ -60,6 +63,7 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
             bg="error"
             color="white"
             _hover={{ bg: "placeholder" }}
+            onClick={() => setPage(0)}
           />
 
           {page === 0 && (
@@ -72,7 +76,14 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
               >
                 <Img src={tutorial1} alt="insctuction 1" />
               </ModalBody>
-              <ModalFooter justifyContent="center">
+              <ModalFooter
+                display="display"
+                flexDirection="column"
+                textAlign="center"
+              >
+                <Text padding="5px" color="text">
+                  Primeiro : Na ordem de serviço clique no botão maps.
+                </Text>
                 <Button
                   w="238px"
                   h="50px"
@@ -80,7 +91,7 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
                   bgColor="secondary"
                   _hover={{ bgColor: "primary" }}
                   rightIcon={<ArrowForwardIcon />}
-                  onClick={() => SetPage(1)}
+                  onClick={() => setPage(1)}
                 >
                   Próximo
                 </Button>
@@ -105,7 +116,14 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
                 />
               </ModalBody>
 
-              <ModalFooter justifyContent="center">
+              <ModalFooter
+                display="display"
+                flexDirection="column"
+                textAlign="center"
+              >
+                <Text padding="5px" color="text">
+                  Segundo : Selecione a opção de abrir com o google Maps.
+                </Text>
                 <Button
                   w="238px"
                   h="50px"
@@ -113,9 +131,88 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
                   bgColor="secondary"
                   _hover={{ bgColor: "primary" }}
                   rightIcon={<ArrowForwardIcon />}
-                  onClick={() => SetPage(0)}
+                  onClick={() => setPage(3)}
                 >
                   Próximo
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+          {page === 3 && (
+            <>
+              <ModalBody
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Img
+                  src={maps}
+                  alt="insctuction 1"
+                  border="4px solid"
+                  borderColor="secondary"
+                  borderRadius="2px"
+                />
+              </ModalBody>
+
+              <ModalFooter
+                display="display"
+                flexDirection="column"
+                textAlign="center"
+              >
+                <Text padding="5px" color="text">
+                  Terceiro : Clique no Rotas para calcular a rota da empresa até
+                  o usuário.
+                </Text>
+                <Button
+                  w="238px"
+                  h="50px"
+                  color="baseDefault"
+                  bgColor="secondary"
+                  _hover={{ bgColor: "primary" }}
+                  rightIcon={<ArrowForwardIcon />}
+                  onClick={() => setPage(4)}
+                >
+                  Próximo
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+          {page === 4 && (
+            <>
+              <ModalBody
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Img
+                  src={mapsFinal}
+                  alt="insctuction 1"
+                  border="4px solid"
+                  borderColor="secondary"
+                  borderRadius="2px"
+                />
+              </ModalBody>
+
+              <ModalFooter
+                display="display"
+                flexDirection="column"
+                textAlign="center"
+              >
+                <Text padding="5px" color="text">
+                  Quarto : Clique no botão de iniciar para navegar até o
+                  cliente.
+                </Text>
+                <Button
+                  w="238px"
+                  h="50px"
+                  color="baseDefault"
+                  bgColor="secondary"
+                  _hover={{ bgColor: "primary" }}
+                  onClick={() => handleInstruction()}
+                >
+                  Fechar
                 </Button>
               </ModalFooter>
             </>
