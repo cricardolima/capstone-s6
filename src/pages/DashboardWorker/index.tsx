@@ -23,7 +23,6 @@ export const DashboardWorker = () => {
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
   const { logout } = useUserAuth();
 
-
   return (
     <>
       <HStack ml="2%" mt="2%" spacing={[2, 5, 10]}>
