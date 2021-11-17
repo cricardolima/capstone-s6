@@ -31,7 +31,7 @@ export interface IRatingData {
   commentary: string;
 }
 
-interface IVehicleData {
+export interface IVehicleData {
   model: string;
   year: number;
 }
@@ -78,6 +78,7 @@ export interface IUpdateOrderBody {
   pickedUpBy?: IPickedUpByData;
   rating?: IRatingData;
   diagnostic?: string;
+  status?: string;
 }
 
 interface IUpdateParams {
@@ -99,8 +100,8 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
   useEffect(() => {
     const fetchData = async () => {
       await getAllOrders();
-      await getCorrespondingOrders();
-      await getUnpickedOrders();
+      //await getCorrespondingOrders();
+      //await getUnpickedOrders();
     };
 
     fetchData();
@@ -235,6 +236,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
 
     const body: IUpdateOrderBody = {
       pickedUpBy: { id, company_name },
+      status: "in_progress"
     };
 
     const updateParams: IUpdateParams = {
