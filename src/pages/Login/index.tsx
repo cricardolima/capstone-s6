@@ -45,7 +45,7 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerUserSchema) });
-  
+
   const handleSingIn = (data: SingInData) => {
     signIn(data);
   };
@@ -135,8 +135,8 @@ export const Login = () => {
             width="100%"
             padding="30px"
             color="baseDefault"
-            bgColor="secondary"
-            _hover={{ bgColor: "primary" }}
+            bgColor="blue.600"
+            _hover={{ bgColor: "blue.500" }}
             type="submit"
           >
             Entrar
