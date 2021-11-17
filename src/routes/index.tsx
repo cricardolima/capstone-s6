@@ -11,10 +11,19 @@ export const Routes = () => {
   return (
     <Switch>
       <AuthRoute exact path="/" pageComponent={Home} />
-      <AuthRoute path="/login" pageComponent={Login} />
-      <AuthRoute path="/registerUser" pageComponent={RegisterUser} />
-      <AuthRoute path="/registerCompany" pageComponent={RegisterCompany} />
-      <AuthRoute isPrivate path="/dashboard" pageComponent={DashboardRoute} />
+      <AuthRoute exact path="/login" pageComponent={Login} />
+      <AuthRoute exact path="/registerUser" pageComponent={RegisterUser} />
+      <AuthRoute
+        exact
+        path="/registerCompany"
+        pageComponent={RegisterCompany}
+      />
+      <AuthRoute
+        exact
+        isPrivate
+        path="/dashboard"
+        pageComponent={DashboardRoute}
+      />
     </Switch>
   );
 };
