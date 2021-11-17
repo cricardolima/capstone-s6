@@ -52,6 +52,7 @@ export const DashboardWorker = () => {
         </Menu>
       </HStack>
       <Button onClick={onToggle}>Toogle Modal</Button>
+
       <ModalCheckoutOrder isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
       <Box mt="3rem">
         <TabsWorker />
