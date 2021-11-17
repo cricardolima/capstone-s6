@@ -17,13 +17,12 @@ import logo from "../../assets/logo.svg";
 import { RiGridFill } from "react-icons/ri";
 import { TabsWorker } from "../../components/Tabs/TabsWorker";
 import { ModalCheckoutOrder } from "../../components/Modal/ModalCheckoutOrder";
+import { useUserAuth } from "../../providers/UserAuth";
 
 export const DashboardWorker = () => {
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
+  const { logout } = useUserAuth();
 
-  const logout = (path: any) => {
-    console.log(path);
-  };
 
   return (
     <>
@@ -46,7 +45,7 @@ export const DashboardWorker = () => {
               <Text>Perfil</Text>
             </MenuItem>
             <MenuItem>
-              <Link onClick={() => logout("saiu")}>
+              <Link onClick={() => logout()}>
                 <Text>Sair</Text>
               </Link>
             </MenuItem>
