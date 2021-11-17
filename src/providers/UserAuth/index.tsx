@@ -110,8 +110,10 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
       localStorage.setItem("@conserta:user", JSON.stringify(user));
 
       setData({ accessToken, user });
-      history.push("/dashboard");
+
       updateOrderStates();
+
+      history.push("/dashboard");
     }
     // eslint-disable-next-line
   }, []);

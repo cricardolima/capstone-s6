@@ -1,6 +1,12 @@
 import * as React from "react";
 import { useToast } from "@chakra-ui/toast";
-import { useContext, createContext, ReactNode, useState } from "react";
+import {
+  useContext,
+  createContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 import api from "../../services/api";
 import { AxiosRequestConfig } from "axios";
 
@@ -90,6 +96,29 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
   const [companyOrders, setCompanyOrders] = useState<IOrderBody[]>([]);
   const [unpickedOrders, setUnpickedOrders] = useState<IOrderBody[]>([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await getAllOrders();
+      await getCorrespondingOrders();
+      await getUnpickedOrders();
+    };
+
+    fetchData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getCorrespondingOrders();
+      await getUnpickedOrders();
+    };
+
+    fetchData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allOrders]);
+
   const toast = useToast();
 
   const mainEndpoint: string = `/orders`;
@@ -108,27 +137,27 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
   const authorization = () =>
     ({ headers: { Authorization: getBearer() } } as AxiosRequestConfig);
 
-  const getAllOrders = () => {
-    api
+  const getAllOrders = async () => {
+    await api
       .get(mainEndpoint, authorization())
       .then(({ data }) => setAllOrders(data))
       .catch((err) => console.log(err));
   };
 
   const getCorrespondingOrders = () => {
-    const { type, id } = getUserInfo();
+    const user = getUserInfo();
 
     let filteredOrders: IOrderBody[];
 
-    if (type === "user") {
-      filteredOrders = allOrders.filter(({ userId }) => userId === id);
+    if (user?.type === "user") {
+      filteredOrders = allOrders.filter(({ userId }) => userId === user?.id);
 
       setUserOrders(filteredOrders);
     }
 
-    if (type === "company") {
+    if (user?.type === "company") {
       filteredOrders = allOrders.filter(
-        ({ pickedUpBy }) => pickedUpBy?.id === id
+        ({ pickedUpBy }) => pickedUpBy?.id === user?.id
       );
 
       setCompanyOrders(filteredOrders);
@@ -136,21 +165,19 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
   };
 
   const getUnpickedOrders = () => {
-    const { type, id } = getUserInfo();
+    const user = getUserInfo();
 
-    if (type === "company") {
+    if (user?.type === "company") {
       const filteredOrders: IOrderBody[] = allOrders.filter(
-        ({ pickedUpBy }) => pickedUpBy?.id !== id
+        ({ pickedUpBy }) => pickedUpBy?.id !== user?.id
       );
 
       setUnpickedOrders(filteredOrders);
     }
   };
 
-  const updateOrderStates = () => {
-    getAllOrders();
-    getCorrespondingOrders();
-    getUnpickedOrders();
+  const updateOrderStates = async () => {
+    await getAllOrders();
   };
 
   const newOrder = (data: IOrderData) => {
