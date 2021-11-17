@@ -3,6 +3,7 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../services/api";
 import { useToast } from "@chakra-ui/react";
+import { useOrder } from "../Order";
 
 interface User {
   email: string;
@@ -60,6 +61,7 @@ const UserAuthContext = createContext<UserAuthData>({} as UserAuthData);
 export const UserAuthProvider = ({ children }: UserAuthProps) => {
   const history = useHistory();
   const toast = useToast();
+  const { updateOrderStates } = useOrder();
 
   const [data, setData] = useState<Response>(() => {
     const accessToken = localStorage.getItem("@conserta:accessToken");
@@ -100,12 +102,16 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
 
     if (response.data) {
       const { accessToken, user } = response.data;
-      
-      localStorage.setItem("@conserta:accessToken", JSON.stringify(accessToken));
+
+      localStorage.setItem(
+        "@conserta:accessToken",
+        JSON.stringify(accessToken)
+      );
       localStorage.setItem("@conserta:user", JSON.stringify(user));
 
       setData({ accessToken, user });
-      history.push("/dashboard/user");
+      history.push("/dashboard");
+      updateOrderStates();
     }
     // eslint-disable-next-line
   }, []);

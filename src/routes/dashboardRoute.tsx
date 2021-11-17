@@ -1,5 +1,7 @@
 import React from "react";
-import { Route, Redirect, RouterProps } from "react-router-dom";
+import { Route, RouterProps } from "react-router-dom";
+import { DashboardUser } from "../pages/DashboardUser";
+import { DashboardWorker } from "../pages/DashboardWorker";
 
 interface IUser {
   email: string;
@@ -18,11 +20,9 @@ const DashboardRoute = (props: RouterProps) => {
   return (
     <Route
       {...props}
-      render={() => (
-        <Redirect
-          to={user.type === "user" ? "/dashboard/user" : "/dashboard/worker"}
-        />
-      )}
+      render={() =>
+        user.type === "user" ? <DashboardUser /> : <DashboardWorker />
+      }
     />
   );
 };
