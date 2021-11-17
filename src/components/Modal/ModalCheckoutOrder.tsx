@@ -16,7 +16,7 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Textarea
+  Textarea,
 } from "@chakra-ui/react";
 import checkSvg from "../../assets/ok.svg";
 import closeSvg from "../../assets/close.svg";
@@ -25,37 +25,43 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
+import { ICheckoutData, IOrderBody, useOrder } from "../../providers/Order";
 
 interface DisclosureData {
+  orderId: number;
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
 }
 
 const checkOutSchema = yup.object().shape({
-  description: yup.string().required("Campo obrigatório"),
-  action: yup.string().nullable().required("Selecione um dos campos."),
+  diagnostic: yup.string().required("Campo obrigatório"),
+  status: yup.string().nullable().required("Selecione um dos campos."),
 });
 
 export const ModalCheckoutOrder = ({
+  orderId,
   isOpen,
   onClose,
   onOpen,
 }: DisclosureData) => {
+  const { checkoutOrder } = useOrder();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(checkOutSchema) });
+  } = useForm<ICheckoutData>({ resolver: yupResolver(checkOutSchema) });
 
-  const handleCheckout = (data: object) => {
+  const handleCheckout = (data: ICheckoutData) => {
     console.log(data);
+    checkoutOrder(orderId, data);
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent as="form" onSubmit={handleSubmit(handleCheckout)}>
         <ModalHeader>
           <ModalCloseButton>
             <Image src={closeSvg} alt="button close conserta meu carro!" />
@@ -77,22 +83,22 @@ export const ModalCheckoutOrder = ({
           <RadioGroup>
             <Stack direction="row" justifyContent="center">
               <Radio
-                {...register("action")}
+                {...register("status")}
                 colorScheme="green"
-                value="Resolvido no local."
+                value="concluded"
               >
                 Resolvido
               </Radio>
               <Radio
-                {...register("action")}
+                {...register("status")}
                 colorScheme="yellow"
-                value="Reboque acionado."
+                value="sent_to_rescue"
               >
                 Reboque
               </Radio>
             </Stack>
-            {errors.action?.message && (
-              <Text color="error">{errors.action?.message}</Text>
+            {errors.status?.message && (
+              <Text color="error">{errors.status?.message}</Text>
             )}
           </RadioGroup>
           <Flex width="100%" gridGap="10px" justifyContent="Center">
@@ -105,10 +111,10 @@ export const ModalCheckoutOrder = ({
                 _placeholder={{ color: "placeholder" }}
                 placeholder="Ex : A válvula de ignição precisou ser trocada."
                 height="120"
-                {...register("description")}
+                {...register("diagnostic")}
               />
-              {errors.description?.message && (
-                <Text color="error">{errors.description?.message}</Text>
+              {errors.diagnostic?.message && (
+                <Text color="error">{errors.diagnostic?.message}</Text>
               )}
             </FormControl>
           </Flex>
