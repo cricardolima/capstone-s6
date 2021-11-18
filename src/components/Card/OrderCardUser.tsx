@@ -33,6 +33,7 @@ export const OrderCard = ({ item }: ItemProps) => {
     status,
     address,
     vehicle: { model },
+    rating,
   } = item;
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
   const [variation, setVariation] = useState("default");
@@ -97,7 +98,7 @@ export const OrderCard = ({ item }: ItemProps) => {
       >
         <Text fontSize="sm">{updateProgress()}</Text>
         <Button
-          w="30px"
+          w="65px"
           h="30px"
           color={inputVariation[variation]}
           bgColor="baseDefault"
@@ -106,8 +107,10 @@ export const OrderCard = ({ item }: ItemProps) => {
           _hover={{ bgColor: "primary" }}
           type="submit"
           onClick={onToggle}
+          disabled={!!rating}
         >
-          <Icon as={AiOutlineCheck} />
+          {/* <Icon as={AiOutlineCheck} /> */}
+          Avaliar
         </Button>
       </HStack>
       <ModalEvaluationScreen
