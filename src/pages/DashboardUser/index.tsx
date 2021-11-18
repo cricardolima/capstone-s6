@@ -54,10 +54,8 @@ export const DashboardUser = () => {
             <MenuItem isDisabled>
               <Text>Perfil (Em Breve)</Text>
             </MenuItem>
-            <MenuItem>
-              <Link onClick={() => logout()}>
-                <Text>Sair</Text>
-              </Link>
+            <MenuItem onClick={() => logout()}>
+              <Text>Sair</Text>
             </MenuItem>
           </MenuList>
         </Menu>
