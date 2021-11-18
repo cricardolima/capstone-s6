@@ -73,8 +73,6 @@ const ModalEvaluationScreen = ({
       ...data,
       rate: rate,
     };
-    //OBS
-    // O id da ordem esta fixo porem vai ser pego quando houver o card do serviço.
     rateOrder(id, newData);
   };
   return (
