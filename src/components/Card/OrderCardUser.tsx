@@ -40,7 +40,7 @@ export const OrderCard = ({ item }: ItemProps) => {
     if (status === "concluded") {
       return "Concluído";
     } else {
-      return "A caminho";
+      return "Enviado para reboque";
     }
   };
 
@@ -69,7 +69,7 @@ export const OrderCard = ({ item }: ItemProps) => {
       color={inputVariation[variation]}
       borderColor={inputVariation[variation]}
     >
-      <Text as="h1" fontSize={["md","2xl"]} color="text" fontWeight="bold">
+      <Text as="h1" fontSize={["md", "2xl"]} color="text" fontWeight="bold">
         {title}
       </Text>
       <Text as="h6" color="text">

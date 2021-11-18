@@ -236,13 +236,13 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
 
     const body: IUpdateOrderBody = {
       pickedUpBy: { id, company_name },
-      status: "in_progress"
+      status: "in_progress",
     };
 
     const updateParams: IUpdateParams = {
       orderId,
       body,
-      successMessage: "Ordem criada com sucesso!",
+      successMessage: "Ordem resgatada!",
     };
 
     updateOrder(updateParams);
