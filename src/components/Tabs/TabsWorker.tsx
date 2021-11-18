@@ -27,10 +27,10 @@ export const TabsWorker = () => {
       </TabList>
       <TabPanels>
         <TabPanel>
+          <ModalInstruction isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
           <Flex padding="10px" flexWrap="wrap">
             <Button onClick={onToggle}>Tutorial do Maps</Button>
           </Flex>
-          <ModalInstruction isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
           <Flex
             width="100%"
             maxWidth="930px"
