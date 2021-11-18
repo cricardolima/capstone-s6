@@ -1,11 +1,16 @@
-import { Tabs, TabList, Tab, TabPanels, TabPanel,Button } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/hooks";
-import ModalEvaluationScreen from "../../components/Modal/ModalEvaluationScreen";
-
-
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Flex,
+} from "@chakra-ui/react";
+import { OrderCard } from "../Card/OrderCardUser";
+import { useOrder } from "../../providers/Order";
 
 export const TabsUser = () => {
-  const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
+  const { userOrders } = useOrder();
 
   return (
     <Tabs size="md" variant="enclosed">
@@ -14,20 +19,20 @@ export const TabsUser = () => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <p>Teste!</p>
-          <Button
-            w="238px"
-            h="50px"
-            color="baseDefault"
-            bgColor="secondary"
-            _hover={{ bgColor: "primary" }}
-            type="submit"
-            onClick={onToggle}
-          >Chamar avaliação
-          </Button>
+          <Flex
+            width="100%"
+            maxWidth="930px"
+            justifyContent={["center", "center", "center", "flex-start"]}
+            gridGap="10px"
+            flexWrap="wrap"
+            margin="0 auto"
+          >
+            {userOrders.map((item, index) => (
+              <OrderCard item={item as any} key={index} />
+            ))}
+          </Flex>
         </TabPanel>
       </TabPanels>
-      <ModalEvaluationScreen isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
     </Tabs>
   );
 };

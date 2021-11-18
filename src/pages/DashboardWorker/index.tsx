@@ -4,7 +4,6 @@ import {
   Image,
   Box,
   Text,
-  Button,
   Icon,
   Link,
   Menu,
@@ -12,15 +11,12 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/hooks";
 import logo from "../../assets/logo.svg";
 import { RiGridFill } from "react-icons/ri";
 import { TabsWorker } from "../../components/Tabs/TabsWorker";
-import { ModalCheckoutOrder } from "../../components/Modal/ModalCheckoutOrder";
 import { useUserAuth } from "../../providers/UserAuth";
 
 export const DashboardWorker = () => {
-  const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
   const { logout } = useUserAuth();
 
   return (
@@ -51,9 +47,6 @@ export const DashboardWorker = () => {
           </MenuList>
         </Menu>
       </HStack>
-      <Button onClick={onToggle}>Toogle Modal</Button>
-
-      <ModalCheckoutOrder isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
       <Box mt="3rem">
         <TabsWorker />
       </Box>

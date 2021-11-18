@@ -6,11 +6,19 @@ import {
   TabPanel,
   Link,
   Button,
+  SimpleGrid,
+  Flex,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import ModalInstruction from "../../components/Modal/ModalInstruction";
+import { useOrder } from "../../providers/Order";
+import { OrderCardCompany } from "../Card/OrderCardCompany";
+import { OrderCardUnpicked } from "../Card/OrderCardUnpicked";
+
 export const TabsWorker = () => {
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
+  const { companyOrders, unpickedOrders } = useOrder();
+
   return (
     <Tabs size="md" variant="enclosed">
       <TabList>
@@ -19,18 +27,36 @@ export const TabsWorker = () => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <p>Teste!</p>
-          <Link
-            href="https://www.google.com/maps/place/Av.+Lineu+Machado,+145+-+J%C3%B3quei+Clube,+Fortaleza+-+CE,"
-            isExternal
-          >
-            <Button> Ir para o Maps </Button>
-          </Link>
-          <Button onClick={onToggle}>Tutorial de Navegação</Button>
+          <Flex padding="10px" flexWrap="wrap">
+            <Button onClick={onToggle}>Tutorial do Maps</Button>
+          </Flex>
           <ModalInstruction isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+          <Flex
+            width="100%"
+            maxWidth="930px"
+            justifyContent={["center", "center", "center", "flex-start"]}
+            gridGap="10px"
+            flexWrap="wrap"
+            margin="0 auto"
+          >
+            {companyOrders.map((item, index) => (
+              <OrderCardCompany item={item as any} key={index} />
+            ))}
+          </Flex>
         </TabPanel>
         <TabPanel>
-          <p>Teste!</p>
+          <Flex
+            width="100%"
+            maxWidth="930px"
+            justifyContent={["center", "center", "center", "flex-start"]}
+            gridGap="10px"
+            flexWrap="wrap"
+            margin="0 auto"
+          >
+            {unpickedOrders.map((item, index) => (
+              <OrderCardUnpicked item={item as any} key={index} />
+            ))}
+          </Flex>
         </TabPanel>
       </TabPanels>
     </Tabs>
