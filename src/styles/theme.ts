@@ -19,6 +19,10 @@ export const theme = extendTheme({
             500: "#67A277", //background
             600: "#2F855A", //hover            
         },
+        blue:{
+            500:"#12B699",
+            600:"#16759D"
+        },
         fonts:{
             heading:'Inter',
             body:'inter'

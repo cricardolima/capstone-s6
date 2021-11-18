@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react";
 import {
   Flex,
   Text,
@@ -15,7 +15,7 @@ import consertaLogo from "../../assets/logo.svg";
 
 import { Link } from "react-router-dom";
 
-import {useUserAuth} from "../../providers/UserAuth"
+import { useUserAuth } from "../../providers/UserAuth";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -46,29 +46,34 @@ const registerUserSchema = yup.object().shape({
     .string()
     .required("Confirmar Senha Obrigatório")
     .oneOf([yup.ref("password"), null], "As senhas não correspondem!"),
-    cpf : yup.string().required("Campo obrigatório!").matches(/([0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2})/gi,"Somente números Exemplo : 12345678900")
+  cpf: yup
+    .string()
+    .required("Campo obrigatório!")
+    .matches(
+      /([0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2})/gi,
+      "Somente números Exemplo : 12345678900"
+    ),
 });
 
- 
 export const RegisterUser = () => {
-  const {registerUser} =  useUserAuth()
+  const { registerUser } = useUserAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerUserSchema) });
   const handleRegisterUser = (data: RegisterUserData) => {
-        const newData = {
-          ...data,
-          type:"user"
-        }
-    registerUser(newData)
+    const newData = {
+      ...data,
+      type: "user",
+    };
+    registerUser(newData);
   };
   return (
     <Flex
       width="100%"
       padding="10px 0px"
-     height={["", "100vh", "100vh"]}
+      height={["", "100vh", "100vh"]}
       flexDirection={["column", "column", "row"]}
       justifyContent="center"
       alignItems="center"
@@ -79,7 +84,7 @@ export const RegisterUser = () => {
       ]}
     >
       <Flex
-        display={["none","flex","flex",]}
+        display={["none", "flex", "flex"]}
         flex="1"
         justifyContent={["flex-start", "center", "center"]}
         alignItems="center"
@@ -99,12 +104,19 @@ export const RegisterUser = () => {
           flexível e atrativo de gerenciar seus projetos em uma única plataforma
         </Text>
       </Flex>
-      <Flex flex="1" justifyContent="center" flexDirection="column" gridGap="10px" alignItems="center">
-        <Flex  
-          display={["flex","none","none","none"]}
-          width="90%" 
-          justifyContent="flex-start" 
-          alignItems="flex-start">
+      <Flex
+        flex="1"
+        justifyContent="center"
+        flexDirection="column"
+        gridGap="10px"
+        alignItems="center"
+      >
+        <Flex
+          display={["flex", "none", "none", "none"]}
+          width="90%"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
           <ButtonBack />
         </Flex>
         <Stack
@@ -161,7 +173,6 @@ export const RegisterUser = () => {
             )}
           </Box>
 
-
           <Box w="100%">
             <Input
               placeholder="CPF"
@@ -207,8 +218,8 @@ export const RegisterUser = () => {
             width="100%"
             padding="30px"
             color="baseDefault"
-            bgColor="secondary"
-            _hover={{ bgColor: "primary" }}
+            bgColor="blue.600"
+            _hover={{ bgColor: "blue.500" }}
             type="submit"
           >
             Cadastrar
