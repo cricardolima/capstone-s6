@@ -20,6 +20,7 @@ import macedo from "../../assets/macedo.svg";
 import skull from "../../assets/skull.svg";
 import { useHistory } from "react-router";
 import { AiOutlineArrowDown } from "react-icons/ai";
+import { IoIosHelpBuoy } from "react-icons/io";
 import { Footer } from "../../components/Footer";
 
 export const Home = () => {
@@ -113,17 +114,19 @@ export const Home = () => {
             Conserta meu carro!
           </Text>
         </VStack>
-        <Text
-          flex={2}
-          as="h3"
-          fontSize="3xl"
-          color="baseDefault"
-          textShadow="2px 2px 3px #111111"
-        >
-          Seu carro deu problema na estrada e você precisa de socorro o mais
-          rápido possível? O Conserta Meu Carro! promete tornar mais eficiente o
-          processo de busca de ajuda para resolver esse inconveniente!
-        </Text>
+        <HStack flex={2} color="baseDefault" justifyContent="center">
+          <Text
+            as="h3"
+            maxW="80%"
+            fontSize="3xl"
+            textShadow="2px 2px 3px #111111"
+            textAlign="center"
+          >
+            Seu carro deu problema na estrada e você precisa de socorro o mais
+            rápido possível? O Conserta Meu Carro! promete tornar mais eficiente
+            o processo de busca de ajuda para resolver esse inconveniente!
+          </Text>
+        </HStack>
       </Flex>
       <Flex flexDirection={["column", "row", "row", "row"]} width="100%">
         <Flex flexDirection="column" width="100%" margin="0 auto">
@@ -168,12 +171,37 @@ export const Home = () => {
           justifyContent="center"
           padding="20px 0px"
         >
-          <Box
+          <VStack
             h="500px"
             width="90%"
             maxWidth="500px"
             backgroundColor="baseDefault"
-          ></Box>
+            justifyContent="center"
+            spacing={12}
+          >
+            <Icon boxSize="80px" color="blue.600" as={IoIosHelpBuoy} />
+            <Text
+              maxW="80%"
+              as="h2"
+              textAlign="center"
+              fontSize="2xl"
+              fontWeight="bold"
+            >
+              No Conserta Meu Carro!, encontrar alguém para resolver seu
+              problema é mais fácil!
+            </Text>
+            <Button
+              w="174px"
+              h="62px"
+              borderRadius="10px"
+              backgroundColor="blue.600"
+              color="baseDefault"
+              onClick={() => goTo("/registerUser")}
+              _hover={{ backgroundColor: "primary" }}
+            >
+              Registre-se
+            </Button>
+          </VStack>
         </Stack>
         <Flex flexDirection="column" width="100%" margin="0 auto">
           <VStack spacing={12}>
