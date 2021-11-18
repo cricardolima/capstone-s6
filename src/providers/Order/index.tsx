@@ -48,7 +48,7 @@ export interface IOrderBody {
   vehicle: IVehicleData;
   address: string;
   status: "pending" | "in_progress" | "concluded" | "sent_to_rescue";
-  pickedUpBy?: IPickedUpByData; // informaçções da empresa que pegou a ordem
+  pickedUpBy?: IPickedUpByData;
   diagnostic?: string;
   rating?: IRatingData;
   userId: number;
