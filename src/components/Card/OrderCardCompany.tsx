@@ -1,4 +1,11 @@
-import { VStack, Text, HStack, Button, useDisclosure } from "@chakra-ui/react";
+import {
+  VStack,
+  Text,
+  HStack,
+  Button,
+  useDisclosure,
+  Link,
+} from "@chakra-ui/react";
 import { IOrderBody } from "../../providers/Order";
 import { ModalCheckoutOrder } from "../Modal/ModalCheckoutOrder";
 
@@ -20,7 +27,6 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
     if (status === "concluded") {
       return "Concluído";
     } else {
-
       return "Enviado para reboque";
     }
   };
@@ -55,6 +61,24 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
         justifyContent="space-between"
       >
         <Text fontSize="sm">{updateProgress()}</Text>
+        <Link
+          href={`https://www.google.com/maps/place/${item.address}`}
+          isExternal
+        >
+          <Button
+            w="60px"
+            h="30px"
+            color="text"
+            bgColor="baseDefault"
+            borderColor="text"
+            border="1px solid"
+            _hover={{ bgColor: "primary" }}
+            type="submit"
+          >
+            Maps
+          </Button>
+        </Link>
+
         <Button
           w="90px"
           h="30px"
@@ -66,7 +90,7 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
           type="submit"
           onClick={onToggle}
           disabled={status === "concluded" || status === "sent_to_rescue"}
-          >
+        >
           Atualizar
         </Button>
       </HStack>
