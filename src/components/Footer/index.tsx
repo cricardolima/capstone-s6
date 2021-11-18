@@ -22,14 +22,19 @@ export const Footer = () => {
         as="h4"
         fontSize="xl"
         color="baseDefault"
-        textAlign="justify"
+        textAlign="center"
         fontWeight="800"
         w="60%"
       >
         Nosso time de desenvolvedores está constantemente implementando novas
         funcionalidades para o crescimento da plataforma!
       </Text>
-      <HStack spacing={10} pb="20px">
+      <HStack
+        flexDirection={["column", "row", "row", "row"]}
+        spacing={[0, 10, 10, 10]}
+        pb="20px"
+        gridGap="20px"
+      >
         <VStack>
           <Avatar
             color="baseDefault"
@@ -42,7 +47,7 @@ export const Footer = () => {
           <Text color="baseDefault" fontSize="2xl" fontWeight="bold">
             Etnan Sousa
           </Text>
-          <HStack spacing={5}>
+          <HStack>
             <Link href="https://www.linkedin.com/in/etnan/" isExternal>
               <Icon as={FaLinkedinIn} height="40px" width="40px" />
             </Link>
@@ -63,7 +68,7 @@ export const Footer = () => {
           <Text color="baseDefault" fontSize="2xl" fontWeight="bold">
             Luiz Assunção
           </Text>
-          <HStack spacing={5}>
+          <HStack>
             <Link
               href="https://www.linkedin.com/in/luiz-victor-do-nascimento-assun%C3%A7%C3%A3o-b98029214/"
               isExternal
@@ -86,7 +91,7 @@ export const Footer = () => {
           <Text color="baseDefault" fontSize="2xl" fontWeight="bold">
             Bruno Ferreira
           </Text>
-          <HStack spacing={5}>
+          <HStack>
             <Link
               href="https://www.linkedin.com/in/brferreiraoliveira/"
               isExternal
@@ -109,8 +114,11 @@ export const Footer = () => {
           <Text color="baseDefault" fontSize="2xl" fontWeight="bold">
             Ricardo Lima
           </Text>
-          <HStack spacing={5}>
-            <Link href="https://www.linkedin.com/in/ricardo-lima-70496a93/" isExternal>
+          <HStack>
+            <Link
+              href="https://www.linkedin.com/in/ricardo-lima-70496a93/"
+              isExternal
+            >
               <Icon as={FaLinkedinIn} height="40px" width="40px" />
             </Link>
             <Link href="https://github.com/cricardolima" isExternal>

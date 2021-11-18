@@ -27,11 +27,16 @@ export const Home = () => {
   };
 
   return (
-    <Flex flexDirection="column" justifyContent="center" alignItems="center">
+    <Flex
+      flexDirection="column"
+      width="100%"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Flex
         flexDirection="column"
-        h="960px"
-        w="100vw"
+        h={["650px", "960px", "960px", "960px"]}
+        w="100%"
         backgroundColor="secondary"
       >
         <HStack flexDirection="row-reverse">
@@ -109,7 +114,7 @@ export const Home = () => {
           as="h3"
           fontSize="3xl"
           textAlign="justify"
-          w="80%"
+          w="85%"
           color="baseDefault"
           textShadow="2px 2px 3px #111111"
         >
@@ -167,7 +172,7 @@ export const Home = () => {
           </VStack>
         </Flex>
       </Flex>
-      {/*<Footer />*/}
+      <Footer />
     </Flex>
   );
 };
