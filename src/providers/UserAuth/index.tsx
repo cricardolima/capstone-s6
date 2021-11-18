@@ -81,7 +81,7 @@ export const UserAuthProvider = ({ children }: UserAuthProps) => {
         toast({
           position: "top",
           title: "Sucesso ao Fazer Login!",
-          description: "Bem vindo ao Conserta eu Carro!",
+          description: "Bem vindo ao Conserta Meu Carro!",
           status: "success",
           duration: 5000,
           isClosable: true,

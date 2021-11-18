@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { IOrderBody } from "../../providers/Order";
-import { AiOutlineCheck } from "react-icons/ai";
+import { AiFillStar, AiOutlineCheck } from "react-icons/ai";
 import ModalEvaluationScreen from "../Modal/ModalEvaluationScreen";
 
 interface ItemProps {
@@ -33,6 +33,7 @@ export const OrderCard = ({ item }: ItemProps) => {
     status,
     address,
     vehicle: { model },
+    rating,
   } = item;
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
   const [variation, setVariation] = useState("default");
@@ -90,25 +91,35 @@ export const OrderCard = ({ item }: ItemProps) => {
       </Text>
       <HStack
         h="60px"
-        w="90%"
+        w="100%"
         paddingBottom="8px"
         alignItems="flex-end"
         justifyContent="space-between"
       >
         <Text fontSize="sm">{updateProgress()}</Text>
-        <Button
-          w="30px"
-          h="30px"
-          color={inputVariation[variation]}
-          bgColor="baseDefault"
-          borderColor={inputVariation[variation]}
-          border="1px solid"
-          _hover={{ bgColor: "primary" }}
-          type="submit"
-          onClick={onToggle}
-        >
-          <Icon as={AiOutlineCheck} />
-        </Button>
+        {!rating ? (
+          (status === "concluded" || status === "sent_to_rescue") && (
+            <Button
+              w="65px"
+              h="30px"
+              color={inputVariation[variation]}
+              bgColor="baseDefault"
+              borderColor={inputVariation[variation]}
+              border="1px solid"
+              _hover={{ bgColor: "primary" }}
+              type="submit"
+              onClick={onToggle}
+            >
+              {/* <Icon as={AiOutlineCheck} /> */}
+              Avaliar
+            </Button>
+          )
+        ) : (
+          <HStack>
+            <Text>{rating.rate}</Text>
+            <Icon as={AiFillStar} />
+          </HStack>
+        )}
       </HStack>
       <ModalEvaluationScreen
         id={id as any}
