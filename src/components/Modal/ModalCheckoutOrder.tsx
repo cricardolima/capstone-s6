@@ -54,8 +54,8 @@ export const ModalCheckoutOrder = ({
   } = useForm<ICheckoutData>({ resolver: yupResolver(checkOutSchema) });
 
   const handleCheckout = (data: ICheckoutData) => {
-    console.log(data);
     checkoutOrder(orderId, data);
+    onClose();
   };
 
   return (
