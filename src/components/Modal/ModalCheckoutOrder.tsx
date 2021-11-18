@@ -25,7 +25,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useForm } from "react-hook-form";
-import { ICheckoutData, IOrderBody, useOrder } from "../../providers/Order";
+import { ICheckoutData, useOrder } from "../../providers/Order";
 
 interface DisclosureData {
   orderId: number;

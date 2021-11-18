@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent} from "@testing-library/react";
 import { Input } from "../../../components/Input";
 
 describe("Input component", () => {
@@ -7,4 +7,12 @@ describe("Input component", () => {
     render(<Input name={"Telefone"} label={"Phone"} />);
     expect(screen.getByLabelText("Phone")).toBeTruthy();
   });
+
+  it("should be able insert values on input",  ()=>{
+    render(<Input name={"Telefone"} placeholder="Phone" label={"Phone"} />);
+      const input = screen.getByPlaceholderText("Phone");
+      fireEvent.change(input,{target:{value:"85999987538"}})
+      expect(input).toHaveValue("85999987538")  
+})
+
 });
