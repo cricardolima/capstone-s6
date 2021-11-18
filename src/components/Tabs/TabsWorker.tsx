@@ -4,9 +4,8 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  Link,
-  Button,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
 import ModalInstruction from "../../components/Modal/ModalInstruction";
@@ -16,6 +15,7 @@ import { OrderCardUnpicked } from "../Card/OrderCardUnpicked";
 
 export const TabsWorker = () => {
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
+
   const { companyOrders, unpickedOrders, updateOrderStates } = useOrder();
 
   return (
@@ -39,7 +39,7 @@ export const TabsWorker = () => {
             margin="0 auto"
           >
             {companyOrders.map((item, index) => (
-              <OrderCardCompany item={item} key={index} />
+              <OrderCardCompany item={item as any} key={index} />
             ))}
           </Flex>
         </TabPanel>
@@ -53,7 +53,7 @@ export const TabsWorker = () => {
             margin="0 auto"
           >
             {unpickedOrders.map((item, index) => (
-              <OrderCardUnpicked item={item} key={index} />
+              <OrderCardUnpicked item={item as any} key={index} />
             ))}
           </Flex>
         </TabPanel>

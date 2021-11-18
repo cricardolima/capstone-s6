@@ -36,8 +36,8 @@ export const DashboardWorker = () => {
           </MenuButton>
           <MenuList>
             <MenuItem></MenuItem>
-            <MenuItem>
-              <Text>Perfil</Text>
+            <MenuItem isDisabled>
+              <Text>Perfil (Em Breve)</Text>
             </MenuItem>
             <MenuItem>
               <Link onClick={() => logout()}>

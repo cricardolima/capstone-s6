@@ -36,7 +36,7 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
       h={["220px"]}
       w={"100%"}
       maxWidth="300px"
-      //w={["200px", "250px", "270px", "300px"]}
+      backgroundColor="baseDefault"
       alignItems="flex-start"
       p="20px 0px 0px 20px"
       border="2px solid"

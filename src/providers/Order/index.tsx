@@ -195,13 +195,19 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
       .then(() => {
         updateOrderStates();
         toast({
+          position: "top",
           title: "Ordem criada com sucesso!",
           status: "success",
           isClosable: true,
         });
       })
       .catch(({ response }) => {
-        toast({ title: response.data, status: "error", isClosable: true });
+        toast({
+          position: "top",
+          title: response.data,
+          status: "error",
+          isClosable: true,
+        });
       });
   };
 
@@ -236,7 +242,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
 
     const body: IUpdateOrderBody = {
       pickedUpBy: { id, company_name },
-      status: "in_progress",
+      status: "in_progress"
     };
 
     const updateParams: IUpdateParams = {
@@ -284,13 +290,19 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
       .then(() => {
         updateOrderStates();
         toast({
+          position: "top",
           title: "Ordem deletada!",
           status: "success",
           isClosable: true,
         });
       })
       .catch(({ response }) => {
-        toast({ title: response.data, status: "error", isClosable: true });
+        toast({
+          position: "top",
+          title: response.data,
+          status: "error",
+          isClosable: true,
+        });
       });
   };
 
