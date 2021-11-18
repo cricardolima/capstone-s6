@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
-import consertaLogo from "../../assets/logo.svg";
+import consertaLogo from "../../assets/logo.png";
 import { FaEnvelope, FaLock, FaPhoneAlt } from "react-icons/fa";
 
 import { Link } from "react-router-dom";

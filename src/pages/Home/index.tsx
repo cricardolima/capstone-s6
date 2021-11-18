@@ -9,8 +9,9 @@ import {
   Text,
   Icon,
   Grid,
+  Flex,
 } from "@chakra-ui/react";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import checkSVG from "../../assets/ok.svg";
 import Partners from "../../assets/Company-cuate.svg";
 import Users from "../../assets/Hotel Booking-cuate.svg";
@@ -26,17 +27,27 @@ export const Home = () => {
   };
 
   return (
-    <>
-      <Box h="960px" w="100vw" backgroundColor="secondary">
+    <Flex
+      flexDirection="column"
+      width="100%"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Flex
+        flexDirection="column"
+        h={["650px", "960px", "960px", "960px"]}
+        w="100%"
+        backgroundColor="secondary"
+      >
         <HStack flexDirection="row-reverse">
           <Button
             w="174px"
             h="62px"
             borderRadius="0px"
-            backgroundColor="primary"
+            backgroundColor="blue.600"
             color="baseDefault"
             onClick={() => goTo("/registerUser")}
-            _hover={{ backgroundColor: "secondary" }}
+            _hover={{ backgroundColor: "primary" }}
           >
             Registre-se
           </Button>
@@ -46,26 +57,28 @@ export const Home = () => {
             backgroundColor="inherit"
             color="baseDefault"
             onClick={() => goTo("/login")}
-            _hover={{ backgroundColor: "primary" }}
+            _hover={{ backgroundColor: "blue.600" }}
           >
             Login
           </Button>
         </HStack>
         <VStack>
-          <Image src={logo} h="240px" />
+          <Image mt="20px" src={logo} h="240px" />
           <Text
             color="baseDefault"
             as="h1"
-            fontSize="9xl"
+            fontSize={["3xl", "5xl", "7xl", "8xl"]}
             fontWeight="800"
             textShadow="2px 2px 3px #111111"
+            textAlign="center"
           >
             Conserta meu carro!
           </Text>
           <Text
             color="baseDefault"
-            fontSize="2xl"
+            fontSize={["lg", "xl", "lx", "2lx"]}
             textShadow="2px 2px 3px #111111"
+            textAlign="center"
           >
             Seu mecânico na mão em qualquer lugar!
           </Text>
@@ -76,69 +89,90 @@ export const Home = () => {
           </Text>
           <Icon as={AiOutlineArrowDown} color="primary" h="18px" />
         </VStack>
-      </Box>
-      <Box w="100%" backgroundColor="primary" h="960px">
-        <Grid templateColumns="repeat(2, 1fr)" alignItems="center" h="100%">
-          <VStack>
-            <Image src={checkSVG} h="240px" />
-            <Text
-              as="h2"
-              fontSize="5xl"
-              color="baseDefault"
-              textShadow="2px 2px 3px #111111"
-            >
-              Conserta meu carro!
-            </Text>
-          </VStack>
+      </Flex>
+      <Flex
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        w="100%"
+        backgroundColor="primary"
+        h="960px"
+      >
+        <VStack justifyContent="center">
+          <Image src={checkSVG} h="240px" />
           <Text
-            as="h3"
-            fontSize="3xl"
-            textAlign="justify"
-            w="80%"
+            as="h2"
+            fontSize="5xl"
             color="baseDefault"
             textShadow="2px 2px 3px #111111"
+            textAlign="center"
           >
-            Seu carro deu problema na estrada e você precisa de socorro o mais
-            rápido possível? O Conserta Meu Carro! promete tornar mais eficiente
-            o processo de busca de ajuda para resolver esse inconveniente!
+            Conserta meu carro!
           </Text>
-        </Grid>
-      </Box>
-      <Grid templateColumns="repeat(2, 1fr)" alignItems="center" h="815px">
-        <VStack spacing={12}>
-          <Text as="h2" fontSize="4xl" fontWeight="bold">
-            Empresas Parceiras
-          </Text>
-          <Image src={Partners} h="500px" />
         </VStack>
+        <Text
+          as="h3"
+          fontSize="3xl"
+          textAlign="justify"
+          w="85%"
+          color="baseDefault"
+          textShadow="2px 2px 3px #111111"
+        >
+          Seu carro deu problema na estrada e você precisa de socorro o mais
+          rápido possível? O Conserta Meu Carro! promete tornar mais eficiente o
+          processo de busca de ajuda para resolver esse inconveniente!
+        </Text>
+      </Flex>
+      <Flex flexDirection={["column", "row", "row", "row"]} width="100%">
+        <Flex flexDirection="column" width="100%" margin="0 auto">
+          <VStack spacing={12}>
+            <Text as="h2" fontSize="4xl" fontWeight="bold" textAlign="center">
+              Empresas Parceiras
+            </Text>
+            <Image src={Partners} />
+          </VStack>
+        </Flex>
         <Stack
           backgroundColor="secondary"
-          h="100%"
           w="100%"
           alignItems="center"
           justifyContent="center"
+          padding="20px 0px"
         >
-          <Box h="500px" w="500px" backgroundColor="baseDefault"></Box>
+          <Box
+            h="500px"
+            w="90%"
+            maxWidth="500px"
+            backgroundColor="baseDefault"
+          ></Box>
         </Stack>
-      </Grid>
-      <Grid templateColumns="repeat(2, 1fr)" alignItems="center" h="815px">
+      </Flex>
+
+      <Flex flexDirection={["column", "row", "row", "row"]} width="100%">
         <Stack
           backgroundColor="primary"
-          h="100%"
           w="100%"
           alignItems="center"
           justifyContent="center"
+          padding="20px 0px"
         >
-          <Box h="500px" w="500px" backgroundColor="baseDefault"></Box>
+          <Box
+            h="500px"
+            width="90%"
+            maxWidth="500px"
+            backgroundColor="baseDefault"
+          ></Box>
         </Stack>
-        <VStack spacing={12}>
-          <Text as="h2" fontSize="4xl" fontWeight="bold">
-            Usuário do APP
-          </Text>
-          <Image src={Users} h="500px" />
-        </VStack>
-      </Grid>
+        <Flex flexDirection="column" width="100%" margin="0 auto">
+          <VStack spacing={12}>
+            <Text as="h2" fontSize="4xl" fontWeight="bold">
+              Usuário do APP
+            </Text>
+            <Image src={Users} />
+          </VStack>
+        </Flex>
+      </Flex>
       <Footer />
-    </>
+    </Flex>
   );
 };

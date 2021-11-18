@@ -13,7 +13,7 @@ import {
   MenuItem,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import ModalOrderRegister from "../../components/Modal/ModalOrder";
 import { RiGridFill } from "react-icons/ri";
 import { TabsUser } from "../../components/Tabs/TabsUser";
@@ -54,10 +54,8 @@ export const DashboardUser = () => {
             <MenuItem isDisabled>
               <Text>Perfil (Em Breve)</Text>
             </MenuItem>
-            <MenuItem>
-              <Link onClick={() => logout()}>
-                <Text>Sair</Text>
-              </Link>
+            <MenuItem onClick={() => logout()}>
+              <Text>Sair</Text>
             </MenuItem>
           </MenuList>
         </Menu>
