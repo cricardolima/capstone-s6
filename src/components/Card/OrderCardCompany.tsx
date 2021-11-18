@@ -7,7 +7,7 @@ interface ItemProps {
 }
 
 export const OrderCardCompany = ({ item }: ItemProps) => {
-  const { title, description, status, address, vehicle } = item;
+  const { id, title, description, status, address, vehicle } = item;
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
 
   const updateProgress = () => {
@@ -20,7 +20,8 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
     if (status === "concluded") {
       return "Concluído";
     } else {
-      return "A caminho";
+
+      return "Enviado para reboque";
     }
   };
 
@@ -64,11 +65,17 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
           _hover={{ bgColor: "primary" }}
           type="submit"
           onClick={onToggle}
-        >
+          disabled={status === "concluded" || status === "sent_to_rescue"}
+          >
           Atualizar
         </Button>
       </HStack>
-      <ModalCheckoutOrder isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+      <ModalCheckoutOrder
+        orderId={id as any}
+        isOpen={isOpen}
+        onClose={onClose}
+        onOpen={onOpen}
+      />
     </VStack>
   );
 };

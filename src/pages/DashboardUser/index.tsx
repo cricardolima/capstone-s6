@@ -37,8 +37,8 @@ export const DashboardUser = () => {
             w="238px"
             h="50px"
             color="baseDefault"
-            bgColor="secondary"
-            _hover={{ bgColor: "primary" }}
+            bgColor="blue.600"
+            _hover={{ bgColor: "blue.500" }}
             type="submit"
             onClick={onToggle}
           >

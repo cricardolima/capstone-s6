@@ -19,7 +19,7 @@ export const OrderCardUnpicked = ({ item }: ItemProps) => {
     if (status === "concluded") {
       return "Concluído";
     } else {
-      return "A caminho";
+      return "Enviado para reboque";
     }
   };
 
@@ -28,7 +28,6 @@ export const OrderCardUnpicked = ({ item }: ItemProps) => {
       h={["220px"]}
       w={"100%"}
       maxWidth="300px"
-      //w={["200px", "250px", "270px", "300px"]}
       alignItems="flex-start"
       p="20px 0px 0px 20px"
       border="2px solid"

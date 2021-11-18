@@ -4,7 +4,6 @@ import {
   Tab,
   TabPanels,
   TabPanel,
-  SimpleGrid,
   Flex,
 } from "@chakra-ui/react";
 import { useOrder } from "../../providers/Order";
@@ -12,13 +11,15 @@ import { OrderCardCompany } from "../Card/OrderCardCompany";
 import { OrderCardUnpicked } from "../Card/OrderCardUnpicked";
 
 export const TabsWorker = () => {
-  const { companyOrders, unpickedOrders } = useOrder();
+
+  const { companyOrders, unpickedOrders, updateOrderStates } = useOrder();
+
 
   return (
     <Tabs size="md" variant="enclosed">
       <TabList>
         <Tab>Meus Serviços</Tab>
-        <Tab>Serviços Disponíveis</Tab>
+        <Tab onClick={updateOrderStates}>Serviços Disponíveis</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>

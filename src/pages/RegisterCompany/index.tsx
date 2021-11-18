@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react";
 import {
   Flex,
   Text,
@@ -11,10 +11,10 @@ import {
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
 import consertaLogo from "../../assets/logo.svg";
-import { FaEnvelope, FaLock,FaPhoneAlt } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaPhoneAlt } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
-import {useUserAuth} from "../../providers/UserAuth"
+import { useUserAuth } from "../../providers/UserAuth";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -25,7 +25,7 @@ interface RegisterCompanyData {
   name: string | null;
   company_name: string;
   cnpj: string;
-  address : string;
+  address: string;
   email: string;
   password: string;
   passwordTwo: string;
@@ -52,14 +52,14 @@ const registerCompanySchema = yup.object().shape({
 });
 
 export const RegisterCompany = () => {
-  const {registerCompany} = useUserAuth();
+  const { registerCompany } = useUserAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerCompanySchema) });
   const handleRegisterCompany = (data: RegisterCompanyData) => {
-    registerCompany({...data, type: "company"})
+    registerCompany({ ...data, type: "company" });
   };
   return (
     <Flex
@@ -82,27 +82,27 @@ export const RegisterCompany = () => {
         padding="20px"
         boxShadow="0px 4px 8px 4px rgba(0, 0, 0, 0.25);"
       >
-              <Box width="100%" marginBottom="20px">
-                <ButtonBack />
-              </Box>
-        <Flex 
-          flexDirection={["column","row","row","row"]}
+        <Box width="100%" marginBottom="20px">
+          <ButtonBack />
+        </Box>
+        <Flex
+          flexDirection={["column", "row", "row", "row"]}
           alignItems="center"
           gridGap={["10px"]}
-          >
-              <Box display="flex" justifyContent="center" >
-                <Img width="80px" src={consertaLogo} alt="Conserta Logo!" />
-              </Box>
-              <Box textAlign="center" paddingBottom="20px" >
-                <Text
-                  fontSize={["lg", "2xl", "2xl"]}
-                  fontWeight="bold"
-                  color="text"
-                  textAlign={["center", "start", "start"]}
-                >
-                  Cadastro de Empresa
-                </Text>
-              </Box>
+        >
+          <Box display="flex" justifyContent="center">
+            <Img width="80px" src={consertaLogo} alt="Conserta Logo!" />
+          </Box>
+          <Box textAlign="center" paddingBottom="20px">
+            <Text
+              fontSize={["lg", "2xl", "2xl"]}
+              fontWeight="bold"
+              color="text"
+              textAlign={["center", "start", "start"]}
+            >
+              Cadastro de Empresa
+            </Text>
+          </Box>
         </Flex>
         <Flex
           width="100%"
@@ -111,7 +111,6 @@ export const RegisterCompany = () => {
           gridGap="10px"
         >
           <Stack flex="1" alignItems="center">
-         
             <Box w="100%" maxWidth="400px">
               <Input
                 placeholder="Razão Social"
@@ -121,7 +120,7 @@ export const RegisterCompany = () => {
                 {...register("company_name")}
               />
             </Box>
-            <Box w="100%" maxWidth="400px" >
+            <Box w="100%" maxWidth="400px">
               <Input
                 placeholder="CNPJ"
                 label={"CNPJ :"}
@@ -130,7 +129,7 @@ export const RegisterCompany = () => {
                 {...register("cnpj")}
               />
             </Box>
-            <Box w="100%" maxWidth="400px" >
+            <Box w="100%" maxWidth="400px">
               <Input
                 placeholder="Nome Fantasia"
                 label={"Nome Fantasia :"}
@@ -138,7 +137,7 @@ export const RegisterCompany = () => {
                 {...register("name")}
               />
             </Box>
-            <Box w="100%" maxWidth="400px" >
+            <Box w="100%" maxWidth="400px">
               <Input
                 placeholder="(85) 9 1234-5678 "
                 label={"Telefone:"}
@@ -166,7 +165,7 @@ export const RegisterCompany = () => {
                 </Text>
               )}
             </Box>
-            <Box w="100%" maxWidth="400px" >
+            <Box w="100%" maxWidth="400px">
               <Input
                 placeholder="Senha"
                 label={"Senha :"}
@@ -176,7 +175,7 @@ export const RegisterCompany = () => {
                 icon={FaLock}
               />
             </Box>
-            <Box w="100%" maxWidth="400px" >
+            <Box w="100%" maxWidth="400px">
               <Input
                 placeholder="Confirmação de Senha"
                 label={"Confirmação de Senha :"}
@@ -195,8 +194,8 @@ export const RegisterCompany = () => {
           maxWidth="400px"
           padding="30px"
           color="baseDefault"
-          bgColor="secondary"
-          _hover={{ bgColor: "primary" }}
+          bgColor="blue.600"
+          _hover={{ bgColor: "blue.500" }}
           type="submit"
         >
           Cadastrar
