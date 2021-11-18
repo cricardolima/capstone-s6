@@ -91,14 +91,14 @@ export const Home = () => {
         </VStack>
       </Flex>
       <Flex
-        flexDirection="column"
+        flexDirection={["column", "row", "row", "row"]}
         justifyContent="center"
         alignItems="center"
         w="100%"
         backgroundColor="primary"
         h="960px"
       >
-        <VStack justifyContent="center">
+        <VStack flex={1} justifyContent="center">
           <Image src={checkSVG} h="240px" />
           <Text
             as="h2"
@@ -111,10 +111,9 @@ export const Home = () => {
           </Text>
         </VStack>
         <Text
+          flex={2}
           as="h3"
           fontSize="3xl"
-          textAlign="justify"
-          w="85%"
           color="baseDefault"
           textShadow="2px 2px 3px #111111"
         >
