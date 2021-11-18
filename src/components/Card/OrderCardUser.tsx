@@ -40,7 +40,7 @@ export const OrderCard = ({ item }: ItemProps) => {
     if (status === "concluded") {
       return "Concluído";
     } else {
-      return "A caminho";
+      return "Enviado para reboque";
     }
   };
 

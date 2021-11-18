@@ -6,7 +6,6 @@ import {
   TabPanel,
   Link,
   Button,
-  SimpleGrid,
   Flex,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -17,13 +16,13 @@ import { OrderCardUnpicked } from "../Card/OrderCardUnpicked";
 
 export const TabsWorker = () => {
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
-  const { companyOrders, unpickedOrders } = useOrder();
+  const { companyOrders, unpickedOrders, updateOrderStates } = useOrder();
 
   return (
     <Tabs size="md" variant="enclosed">
       <TabList>
         <Tab>Meus Serviços</Tab>
-        <Tab>Serviços Disponíveis</Tab>
+        <Tab onClick={updateOrderStates}>Serviços Disponíveis</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
@@ -40,7 +39,7 @@ export const TabsWorker = () => {
             margin="0 auto"
           >
             {companyOrders.map((item, index) => (
-              <OrderCardCompany item={item as any} key={index} />
+              <OrderCardCompany item={item} key={index} />
             ))}
           </Flex>
         </TabPanel>
@@ -54,7 +53,7 @@ export const TabsWorker = () => {
             margin="0 auto"
           >
             {unpickedOrders.map((item, index) => (
-              <OrderCardUnpicked item={item as any} key={index} />
+              <OrderCardUnpicked item={item} key={index} />
             ))}
           </Flex>
         </TabPanel>
