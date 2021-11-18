@@ -22,7 +22,7 @@ export const Footer = () => {
         as="h4"
         fontSize="xl"
         color="baseDefault"
-        textAlign="center"
+        textAlign="justify"
         fontWeight="800"
         w="60%"
       >
@@ -31,6 +31,7 @@ export const Footer = () => {
       </Text>
       <HStack
         flexDirection={["column", "row", "row", "row"]}
+        flexWrap="wrap"
         spacing={[0, 10, 10, 10]}
         pb="20px"
         gridGap="20px"
