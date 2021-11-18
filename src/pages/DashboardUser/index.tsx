@@ -13,7 +13,7 @@ import {
   MenuItem,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/hooks";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import ModalOrderRegister from "../../components/Modal/ModalOrder";
 import { RiGridFill } from "react-icons/ri";
 import { TabsUser } from "../../components/Tabs/TabsUser";

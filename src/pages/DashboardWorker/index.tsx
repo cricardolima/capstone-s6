@@ -11,7 +11,7 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import { RiGridFill } from "react-icons/ri";
 import { TabsWorker } from "../../components/Tabs/TabsWorker";
 import { useUserAuth } from "../../providers/UserAuth";

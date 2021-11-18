@@ -1,5 +1,8 @@
 import { VStack, HStack, Text, Icon, Avatar, Link } from "@chakra-ui/react";
 import etnan from "../../assets/etnan.jpeg";
+import luiz from "../../assets/luiz.png";
+import bruno from "../../assets/bruno.jpg";
+import ricardo from "../../assets/ricardo.jpg";
 import { FaLinkedinIn } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 
@@ -29,6 +32,7 @@ export const Footer = () => {
       <HStack spacing={10} pb="20px">
         <VStack>
           <Avatar
+            color="baseDefault"
             h="200px"
             w="200px"
             name="Etnan Nascimento Sousa"
@@ -39,42 +43,79 @@ export const Footer = () => {
             Etnan Sousa
           </Text>
           <HStack spacing={5}>
-            <Link href="https://www.linkedin.com/in/etnan/">
+            <Link href="https://www.linkedin.com/in/etnan/" isExternal>
               <Icon as={FaLinkedinIn} height="40px" width="40px" />
             </Link>
-            <Link href="https://github.com/Poketnans">
+            <Link href="https://github.com/Poketnans" isExternal>
               <Icon as={BsGithub} height="40px" width="40px" />
             </Link>
           </HStack>
         </VStack>
         <VStack>
-          <Avatar h="200px" w="200px" border="2px solid" />
+          <Avatar
+            color="baseDefault"
+            h="200px"
+            w="200px"
+            border="2px solid"
+            name="Luiz Victor Do Nascimento Assunção"
+            src={luiz}
+          />
           <Text color="baseDefault" fontSize="2xl" fontWeight="bold">
             Luiz Assunção
           </Text>
           <HStack spacing={5}>
-            <Icon as={FaLinkedinIn} height="40px" width="40px" />
-            <Icon as={BsGithub} height="40px" width="40px" />
+            <Link
+              href="https://www.linkedin.com/in/luiz-victor-do-nascimento-assun%C3%A7%C3%A3o-b98029214/"
+              isExternal
+            >
+              <Icon as={FaLinkedinIn} height="40px" width="40px" />
+            </Link>
+            <Link href="https://github.com/BaiduAV" isExternal>
+              <Icon as={BsGithub} height="40px" width="40px" />
+            </Link>
           </HStack>
         </VStack>
         <VStack>
-          <Avatar h="200px" w="200px" border="2px solid" />
+          <Avatar
+            color="baseDefault"
+            h="200px"
+            w="200px"
+            border="2px solid"
+            src={bruno}
+          />
           <Text color="baseDefault" fontSize="2xl" fontWeight="bold">
             Bruno Ferreira
           </Text>
           <HStack spacing={5}>
-            <Icon as={FaLinkedinIn} height="40px" width="40px" />
-            <Icon as={BsGithub} height="40px" width="40px" />
+            <Link
+              href="https://www.linkedin.com/in/brferreiraoliveira/"
+              isExternal
+            >
+              <Icon as={FaLinkedinIn} height="40px" width="40px" />
+            </Link>
+            <Link href="https://github.com/Brunoro811" isExternal>
+              <Icon as={BsGithub} height="40px" width="40px" />
+            </Link>
           </HStack>
         </VStack>
         <VStack>
-          <Avatar h="200px" w="200px" border="2px solid" />
+          <Avatar
+            color="baseDefault"
+            h="200px"
+            w="200px"
+            border="2px solid"
+            src={ricardo}
+          />
           <Text color="baseDefault" fontSize="2xl" fontWeight="bold">
             Ricardo Lima
           </Text>
           <HStack spacing={5}>
-            <Icon as={FaLinkedinIn} height="40px" width="40px" />
-            <Icon as={BsGithub} height="40px" width="40px" />
+            <Link href="https://www.linkedin.com/in/ricardo-lima-70496a93/" isExternal>
+              <Icon as={FaLinkedinIn} height="40px" width="40px" />
+            </Link>
+            <Link href="https://github.com/cricardolima" isExternal>
+              <Icon as={BsGithub} height="40px" width="40px" />
+            </Link>
           </HStack>
         </VStack>
       </HStack>
