@@ -98,20 +98,22 @@ export const OrderCard = ({ item }: ItemProps) => {
       >
         <Text fontSize="sm">{updateProgress()}</Text>
         {!rating ? (
-          <Button
-            w="65px"
-            h="30px"
-            color={inputVariation[variation]}
-            bgColor="baseDefault"
-            borderColor={inputVariation[variation]}
-            border="1px solid"
-            _hover={{ bgColor: "primary" }}
-            type="submit"
-            onClick={onToggle}
-          >
-            {/* <Icon as={AiOutlineCheck} /> */}
-            Avaliar
-          </Button>
+          (status === "concluded" || status === "sent_to_rescue") && (
+            <Button
+              w="65px"
+              h="30px"
+              color={inputVariation[variation]}
+              bgColor="baseDefault"
+              borderColor={inputVariation[variation]}
+              border="1px solid"
+              _hover={{ bgColor: "primary" }}
+              type="submit"
+              onClick={onToggle}
+            >
+              {/* <Icon as={AiOutlineCheck} /> */}
+              Avaliar
+            </Button>
+          )
         ) : (
           <HStack>
             <Text>{rating.rate}</Text>
