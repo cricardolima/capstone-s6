@@ -20,6 +20,7 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
     if (status === "concluded") {
       return "Concluído";
     } else {
+
       return "Enviado para reboque";
     }
   };
@@ -27,7 +28,9 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
   return (
     <VStack
       h={["220px"]}
-      w={["200px", "250px", "270px", "300px"]}
+      w={"100%"}
+      maxWidth="300px"
+      backgroundColor="baseDefault"
       alignItems="flex-start"
       p="20px 0px 0px 20px"
       border="2px solid"
@@ -63,7 +66,7 @@ export const OrderCardCompany = ({ item }: ItemProps) => {
           type="submit"
           onClick={onToggle}
           disabled={status === "concluded" || status === "sent_to_rescue"}
-        >
+          >
           Atualizar
         </Button>
       </HStack>
