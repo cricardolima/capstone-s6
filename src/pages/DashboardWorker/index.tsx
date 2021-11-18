@@ -5,6 +5,8 @@ import {
   Box,
   Text,
   Icon,
+  Flex,
+  Button,
   Menu,
   MenuButton,
   MenuList,
@@ -14,9 +16,12 @@ import logo from "../../assets/logo.png";
 import { RiGridFill } from "react-icons/ri";
 import { TabsWorker } from "../../components/Tabs/TabsWorker";
 import { useUserAuth } from "../../providers/UserAuth";
+import { useDisclosure } from "@chakra-ui/hooks";
+import ModalInstruction from "../../components/Modal/ModalInstruction";
 
 export const DashboardWorker = () => {
   const { logout } = useUserAuth();
+  const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <>
@@ -28,6 +33,10 @@ export const DashboardWorker = () => {
           <Text as="h3" color="text" fontWeight="bold">
             Dashboard Empresa
           </Text>
+          <ModalInstruction isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+          <Flex padding="10px" flexWrap="wrap">
+            <Button onClick={onToggle}>Tutorial do Maps</Button>
+          </Flex>
         </VStack>
         <Menu>
           <MenuButton>
