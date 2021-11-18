@@ -8,13 +8,16 @@ import {
   Image,
   Text,
   Icon,
-  Grid,
   Flex,
 } from "@chakra-ui/react";
 import logo from "../../assets/logo.png";
 import checkSVG from "../../assets/ok.svg";
 import Partners from "../../assets/Company-cuate.svg";
 import Users from "../../assets/Hotel Booking-cuate.svg";
+import enforcer from "../../assets/enforcer-mechs.jpg";
+import garage from "../../assets/garage.svg";
+import macedo from "../../assets/macedo.svg";
+import skull from "../../assets/skull.svg";
 import { useHistory } from "react-router";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import { Footer } from "../../components/Footer";
@@ -138,12 +141,22 @@ export const Home = () => {
           justifyContent="center"
           padding="20px 0px"
         >
-          <Box
-            h="500px"
+          <Flex
+            h="300px"
             w="90%"
             maxWidth="500px"
             backgroundColor="baseDefault"
-          ></Box>
+            flexWrap="wrap"
+            gridGap="10px"
+            alignContent="center"
+            justifyContent="space-evenly"
+            p="10px"
+          >
+            <Image h="90px" src={enforcer} />
+            <Image h="90px" src={garage} />
+            <Image h="90px" src={macedo} />
+            <Image h="90px" src={skull} />
+          </Flex>
         </Stack>
       </Flex>
 
@@ -164,7 +177,7 @@ export const Home = () => {
         </Stack>
         <Flex flexDirection="column" width="100%" margin="0 auto">
           <VStack spacing={12}>
-            <Text as="h2" fontSize="4xl" fontWeight="bold">
+            <Text as="h2" fontSize="4xl" fontWeight="bold" textAlign="center">
               Usuário do APP
             </Text>
             <Image src={Users} />
