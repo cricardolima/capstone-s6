@@ -27,6 +27,7 @@ const inputVariation: inputVariationOptions = {
 
 export const OrderCard = ({ item }: ItemProps) => {
   const {
+    id,
     title,
     description,
     status,
@@ -110,6 +111,7 @@ export const OrderCard = ({ item }: ItemProps) => {
         </Button>
       </HStack>
       <ModalEvaluationScreen
+        id={id as any}
         isOpen={isOpen}
         onClose={onClose}
         onOpen={onOpen}
