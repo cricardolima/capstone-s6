@@ -42,11 +42,15 @@ interface DisclosureData {
   isOpen: boolean;
   onClose: () => void;
   onOpen: () => void;
+  id: any;
 }
 
-console.log(orderSchema);
-
-const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
+const ModalEvaluationScreen = ({
+  isOpen,
+  onClose,
+  onOpen,
+  id,
+}: DisclosureData) => {
   const { rateOrder } = useOrder();
   const [rate, setRate] = useState(3);
   const { register, handleSubmit, reset, formState } = useForm<IOrderData>({
@@ -71,7 +75,7 @@ const ModalEvaluationScreen = ({ isOpen, onClose, onOpen }: DisclosureData) => {
     };
     //OBS
     // O id da ordem esta fixo porem vai ser pego quando houver o card do serviço.
-    rateOrder(4, newData);
+    rateOrder(id, newData);
   };
   return (
     <>
