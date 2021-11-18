@@ -21,12 +21,18 @@ type inputVariationOptions = {
 const inputVariation: inputVariationOptions = {
   pending: "placeholder",
   default: "text",
-  concluded: "success",
+  concluded: "secondary",
   in_progress: "primary",
 };
 
 export const OrderCard = ({ item }: ItemProps) => {
-  const { title, description, status } = item;
+  const {
+    title,
+    description,
+    status,
+    address,
+    vehicle: { model },
+  } = item;
   const { onToggle, isOpen, onClose, onOpen } = useDisclosure();
   const [variation, setVariation] = useState("default");
 
@@ -64,21 +70,28 @@ export const OrderCard = ({ item }: ItemProps) => {
       w={"100%"}
       maxWidth="300px"
       alignItems="flex-start"
-      p="20px 0px 0px 10px"
+      justifyContent="space-around"
+      p="10px"
       border="2px solid"
       borderRadius="5px"
       color={inputVariation[variation]}
       borderColor={inputVariation[variation]}
     >
+      {console.log(item)}
       <Text as="h1" fontSize={["md", "2xl"]} color="text" fontWeight="bold">
         {title}
       </Text>
       <Text as="h6" color="text">
         {description}
       </Text>
+      <Text color="text">{address}</Text>
+      <Text as="h6" color="text">
+        {model}
+      </Text>
       <HStack
-        h="80px"
+        h="60px"
         w="90%"
+        paddingBottom="8px"
         alignItems="flex-end"
         justifyContent="space-between"
       >
