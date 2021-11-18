@@ -82,7 +82,7 @@ export interface IUpdateOrderBody {
 }
 
 interface IUpdateParams {
-  orderId: number;
+  orderId: number | undefined;
   body: IUpdateOrderBody;
   successMessage: string;
 }
@@ -242,7 +242,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
 
     const body: IUpdateOrderBody = {
       pickedUpBy: { id, company_name },
-      status: "in_progress"
+      status: "in_progress",
     };
 
     const updateParams: IUpdateParams = {
@@ -268,7 +268,7 @@ export const OrderProvider = ({ children }: IOrderProviderProps) => {
     updateOrder(updateParams);
   };
 
-  const checkoutOrder = (orderId: number, data: ICheckoutData) => {
+  const checkoutOrder = (orderId: number | undefined, data: ICheckoutData) => {
     const body: IUpdateOrderBody = {
       ...data,
     };
