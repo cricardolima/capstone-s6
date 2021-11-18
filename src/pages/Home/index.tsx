@@ -10,7 +10,7 @@ import {
   Icon,
   Grid,
 } from "@chakra-ui/react";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import checkSVG from "../../assets/ok.svg";
 import Partners from "../../assets/Company-cuate.svg";
 import Users from "../../assets/Hotel Booking-cuate.svg";
