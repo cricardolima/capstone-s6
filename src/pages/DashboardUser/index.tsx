@@ -6,7 +6,6 @@ import {
   Text,
   Button,
   Icon,
-  Link,
   Menu,
   MenuButton,
   MenuList,

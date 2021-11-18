@@ -6,17 +6,6 @@ interface AuthRouteProps extends RouteProps {
   isPrivate?: boolean;
 }
 
-interface IUser {
-  email: string;
-  name: string;
-  company_name: string;
-  cpf_cnpj?: string;
-  address?: string;
-  id: number;
-  type: "user" | "company";
-  phone?: string;
-}
-
 const AuthRoute = ({
   pageComponent: Component,
   isPrivate,

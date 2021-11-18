@@ -5,7 +5,6 @@ import {
   Box,
   Text,
   Icon,
-  Link,
   Menu,
   MenuButton,
   MenuList,

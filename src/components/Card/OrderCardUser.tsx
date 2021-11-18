@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { IOrderBody } from "../../providers/Order";
-import { AiFillStar, AiOutlineCheck } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 import ModalEvaluationScreen from "../Modal/ModalEvaluationScreen";
 
 interface ItemProps {

@@ -31,6 +31,8 @@ export const Footer = () => {
       </Text>
       <HStack
         flexDirection={["column", "row", "row", "row"]}
+        flexWrap="wrap"
+        justifyContent="center"
         spacing={[0, 10, 10, 10]}
         pb="20px"
         gridGap="20px"
