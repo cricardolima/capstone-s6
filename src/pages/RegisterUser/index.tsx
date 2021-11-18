@@ -11,7 +11,7 @@ import {
 import registerSvg from "../../assets/registerUser.svg";
 import { ButtonBack } from "../../components/ButtonBack";
 import { Input } from "../../components/Input";
-import consertaLogo from "../../assets/logo.svg";
+import consertaLogo from "../../assets/logo.png";
 
 import { Link } from "react-router-dom";
 
