@@ -161,10 +161,11 @@ export const Login = () => {
           <Img src={loginSvg} alt="Registro de Usuário" />
         </Box>
         <Text fontSize="4xl" fontWeight="bold">
-          O jeito fácil, grátis
+          Permita-nos ajudá-lo
         </Text>
         <Text fontSize="xl" textAlign="center">
-          flexível e atrativo de gerenciar seus projetos em uma única plataforma
+          o Conserta Meu Carro quer melhorar seu contato com quem pode lhe
+          ajudar
         </Text>
       </Flex>
     </Flex>
